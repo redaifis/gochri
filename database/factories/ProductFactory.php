@@ -1,0 +1,24 @@
+<?php
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Product;
+use Faker\Generator as Faker;
+
+$factory->define(Product::class, function (Faker $faker) {
+    return [
+        
+        'name' => $faker->sentence(),
+        'description' => $faker->paragraph(),
+        'price' => $faker->randomFloat(2,10,200),
+        'stock' => $faker->numberBetween(20,500),
+        'status' => $faker->boolean(70),
+        'vendor' => $faker->randomElement(['Atacadao','Marjan','Carrefour', 'Aswak Assalam']),
+        'discount' => $faker->randomElement([null,10,5,15]),
+        'image' => $faker->file('public/storage/fruits', 'public/storage/images/products', false),
+        'user_id' => $faker->randomElement([3,4]),
+        'categorie_id' => 19,
+        'subcategorie_id' => 7,
+
+    ];
+});

@@ -1,0 +1,130 @@
+<template>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        
+
+                        <div class="card-tools row" style="float:none">
+                            <div class="col-12 col-md-8 py-2">
+                                <h3 class="card-title flex-start">Tous les commandes</h3>
+                            </div>
+                            <div class="input-group input-group-sm col-12 col-md-2 py-2">
+                                <select class="form-control float-right" id="etat" v-model="status">
+                                    <option value="">Êtat</option>
+                                    <option value="En attente">En attente</option>
+                                    <option value="Livraisé">Livraisé</option>
+                                    <option value="Arrivé">Arrivé</option>
+                                    <option value="Remboursé">Remboursé</option>
+                                </select>
+                            </div>
+                            <!-- <div class="input-group input-group-sm col-12 col-md-2 py-2">
+                                <select class="form-control float-right" id="paiement" v-model="payment">
+                                    <option value="">Paiement</option>
+                                    <option value="Payé">Payé</option>
+                                    <option value="En attente">En attente</option>
+                                    <option value="Remboursé">Remboursé</option>
+                                </select>
+                            </div> -->
+                            <div class="input-group input-group-sm col-12 col-md-2 py-2">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Nom de client.." v-model="search">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Êtat</th>
+                                    <!-- <th>Paiement</th> -->
+                                    <th>Montant</th>
+                                    <!-- <th style="text-align: center;">Actions</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="order in pageOforders" :key="order.id">
+                                    <td style="vertical-align: middle;">{{order.id}}</td>
+                                    <td style="vertical-align: middle;">{{order.created_at | moment('MMMM Do YYYY, h:mm:ss a')}}</td>
+                                    <td style="vertical-align: middle;">{{order.user.name}}</td>
+                                    <td style="vertical-align: middle;"><span :class="['badge', order.status == 'En attente' ? 'badge-warning' : ((order.status == 'Livraisé') ? 'badge-info' : ((order.status == 'Arrivé') ? 'badge-success' : 'badge-danger'))]">{{order.status}}</span></td>
+                                    <!-- <td style="vertical-align: middle;"><span class="badge badge-success">Payé</span></td> -->
+                
+                                    <td style="vertical-align: middle;">{{order.amount}} Dh</td>
+
+                                    <td style="vertical-align: middle;text-align: center;"><a :href="'/admin/orders/'+order.id" class="btn btn-default btn-sm border"><i class="fas fa-eye"></i> Aperçu</a></td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer pb-0 pt-3 text-center">
+                        <jw-pagination :items="searched" @changePage="onChangePage"></jw-pagination>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+</template>
+
+<script>
+export default {
+    props:['orders','csrf','errors','success'],
+    data(){
+        return{
+            images: null,
+            search: '',
+            status: '',
+            payment: '',
+            pageOforders: []
+        }
+    },
+    mounted(){
+        if(this.success != null){
+            this.showSuccess()
+        }
+    },
+    methods: {
+        onChangePage(pageOforders) {
+            // update page of orders
+            this.pageOforders = pageOforders;
+        },
+        showSuccess() {
+            // Show success message if exist
+            this.$swal({
+                icon: 'success',
+                title: this.success,
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'mb-5 ml-4',
+                },
+                onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                }
+            })
+        },
+    },
+    computed: {
+        
+        searched(){
+            return this.orders.filter(order => {
+                return order.user.name.toLowerCase().includes(this.search.toLowerCase())
+                && order.status.toLowerCase().includes(this.status.toLowerCase())
+
+            })
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>
