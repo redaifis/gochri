@@ -1,7 +1,7 @@
 *
 !.gitignore
 !images/
-!images/logo
-!images/logo/*
-!images/profiles
-!images/profiles/*
+!images/logo/**/*
+!images/profiles/**/*
+!images/products
+!images/products/default_product.png
