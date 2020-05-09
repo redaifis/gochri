@@ -1,2 +1,7 @@
 *
 !.gitignore
+!images/
+!images/logo
+!images/logo/*
+!images/profiles
+!images/profiles/*
