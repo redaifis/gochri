@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -54,14 +55,14 @@ class AdminController extends Controller
 
         if($request->has('image')){
             if($user->image != 'default_profile.jpg'){
-                File::delete(public_path('storage/images/profile'.$user->image));
+                File::delete(public_path('storage/images/profiles/'.$user->image));
             }
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('storage/images/profile'),$imageName);
+            $imageName = Str::random(10).'.'.$request->image->extension();
+            $request->image->move(public_path('storage/images/profiles'),$imageName);
             $user->image = $imageName;
         }
 
-        $user->name = $request->name;
+        $user->name = Str::title($request->name);
         $user->country = $request->country;
         $user->city = $request->city;
         $user->address = $request->address;
@@ -93,7 +94,7 @@ class AdminController extends Controller
 
     public function addShipping(Request $request){
         $method = new Shipping;
-        $method->name = $request->name;
+        $method->name = str::title($request->name);
         $method->price = $request->price;
         $method->delivery_time = $request->time;
         $method->save();

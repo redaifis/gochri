@@ -2251,8 +2251,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(this.orders[2].products);
-
     if (this.success != null) {
       this.showSuccess();
     }

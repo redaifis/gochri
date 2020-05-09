@@ -81,7 +81,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/admin/dashboard" class="brand-link text-center">
-      <span class="brand-text font-weight-light"><img src="/storage/images/logos/gochri.png" alt="gochri logo" style="max-width:40%"></span>
+      <span class="brand-text font-weight-light"><img src="/storage/images/logo/gochri.png" alt="gochri logo" style="max-width:40%"></span>
     </a>
 
     <!-- Sidebar -->

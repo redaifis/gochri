@@ -193,7 +193,6 @@ export default {
         },
     },
     mounted(){
-        console.log(this.orders[2].products)
         if(this.success != null){
             this.showSuccess()
         }

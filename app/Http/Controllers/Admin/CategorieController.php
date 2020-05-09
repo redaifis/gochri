@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Categorie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategorieController extends Controller
 {
@@ -48,8 +49,8 @@ class CategorieController extends Controller
 
         foreach($request->categories as $categorie){
             $newCategorie = new Categorie;
-            $newCategorie->name = $categorie;
-            $newCategorie->slug = strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities(preg_replace('/\s+/','-',trim($categorie)), ENT_QUOTES, 'UTF-8'))), ' '));
+            $newCategorie->name =  Str::title($categorie);
+            $newCategorie->slug =  Str::slug($categorie);
             
             $newCategorie->save();
         }
@@ -75,8 +76,8 @@ class CategorieController extends Controller
         ]);
 
         $editedCategorie = Categorie::findOrFail($id);
-        $editedCategorie->name = $request->editedCategorie;
-        $editedCategorie->slug = strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities(preg_replace('/\s+/','-',trim($request->editedCategorie)), ENT_QUOTES, 'UTF-8'))), ' '));
+        $editedCategorie->name = Str::title($request->editedCategorie);
+        $editedCategorie->slug = Str::slug($request->editedCategorie);
         $editedCategorie->save();
 
         return response()->json(['edited categorie'=>$editedCategorie,'message'=>'La catégorie a été modifié avec success!'],200); 

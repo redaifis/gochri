@@ -6,7 +6,7 @@ use App\Categorie;
 use App\Http\Controllers\Controller;
 use App\Subcategorie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SubcategorieController extends Controller
 {
@@ -52,8 +52,8 @@ class SubcategorieController extends Controller
         
         foreach($request->subcategories as $subcategorie){
             $newSubcategorie = new Subcategorie;
-            $newSubcategorie->name = $subcategorie;
-            $newSubcategorie->slug = strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities(preg_replace('/\s+/','-',trim($subcategorie)), ENT_QUOTES, 'UTF-8'))), ' '));
+            $newSubcategorie->name = Str::title($subcategorie);
+            $newSubcategorie->slug = Str::slug($subcategorie);
             $newSubcategorie->categorie_id = $request->categorie;
             
             $newSubcategorie->save();
@@ -79,14 +79,10 @@ class SubcategorieController extends Controller
             'editedSubcategorie.regex' => 'Le nom de categorie doit pas contenir des caractères speciaux!',
             'editedSubcategorie.distinct' => 'Les sous-catégorie doit être distinctes!',
         ]);
-
-        // if($validatedData->fails()){
-        //     return response()->json(['error'=>'Invalid data!'],422);
-        // }
-
+        
         $editedSubcategorie = Subcategorie::findOrFail($id);
-        $editedSubcategorie->name = $request->editedSubcategorie;
-        $editedSubcategorie->slug = strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities(preg_replace('/\s+/','-',trim($request->editedSubcategorie)), ENT_QUOTES, 'UTF-8'))), ' '));        
+        $editedSubcategorie->name = Str::title($request->editedSubcategorie);
+        $editedSubcategorie->slug = Str::slug($request->editedSubcategorie);        
         $editedSubcategorie->categorie_id = $request->categorie_id;        
         $editedSubcategorie->save();
 

@@ -9,6 +9,7 @@ use App\Subcategorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -50,7 +51,7 @@ class ProductController extends Controller
             'image' => 'image|mimes:jpeg,jpg,png|nullable|max:1024',
             'subcategorie' => 'required',
             'price' => 'required|numeric',
-            'discount' => 'integer',
+            'discount' => 'integer|nullable',
             'vendor' => 'string|regex:/^[A-ZÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒa-zàâçéèêëîïôûùüÿñæœ0-9_.,() ]+$/|nullable',
             'stock' => 'integer|nullable',
             'status' => 'boolean|nullable',
@@ -61,7 +62,7 @@ class ProductController extends Controller
             'description.required'  => 'Le description est obligatoire!',
             'description.image'  => 'Le fichier doit être un image!',
             'description.mimes'  => 'Le fichier doit être un image jpg, jpeg ou png!',
-            'subcategorie.required'  => 'Le categorie est obligatoire!',
+            'subcategorie.required'  => 'La catégorie est obligatoire!',
             'price.required'  => 'Le prix est obligatoire!',
             'discount.required'  => 'Le promotions doit être un nombre!',
             'vendor.regex'  => 'Le nom de fournisseur est invalide!',
@@ -73,17 +74,17 @@ class ProductController extends Controller
         $product = new Product;
         
         if($request->hasFile('image')){
-            $imageName = substr(str_shuffle(preg_replace('/\s+/','',trim($request->name))),0,10).'.'.$request->image->extension();
+            $imageName = Str::random(20).'.'.$request->image->extension();
             if($request->image->move(public_path('storage/images/products'),$imageName)){
                 $product->image = $imageName;
             }
         }
-        
-        $product->name = $request->name;
+        $product->name = Str::title($request->name);
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->vendor = $request->vendor;
+        $product->slug = Str::slug($request->name);
         if($request->has('discount')){
             $product->discount = $request->discount;
         }
@@ -164,13 +165,13 @@ class ProductController extends Controller
         if($request->hasFile('image')){
             if($product->image !== 'default_product.png'){
                 File::delete(public_path('storage/images/products/'.$product->image));
-                $imageName = substr(str_shuffle(preg_replace('/\s+/','',trim($request->name))),0,10).'.'.$request->image->extension();
+                $imageName =  Str::random(20).'.'.$request->image->extension();
                 if($request->image->move(public_path('storage/images/products'),$imageName)){
                     $product->image = $imageName;
                 }
 
             }else{
-                $imageName = substr(str_shuffle(preg_replace('/\s+/','',trim($request->name))),0,10).'.'.$request->image->extension();
+                $imageName = Str::random(20).'.'.$request->image->extension();
                 if($request->image->move(public_path('storage/images/products'),$imageName)){
                     $product->image = $imageName;
                 }
@@ -178,11 +179,12 @@ class ProductController extends Controller
             }
         }
 
-        $product->name = $request->name;
+        $product->name = Str::title($request->name);
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->vendor = $request->vendor;
+        $product->slug = Str::slug($request->name);
         if($request->has('discount')){
             $product->discount = $request->discount;
         }

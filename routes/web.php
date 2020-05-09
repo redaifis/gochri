@@ -6,10 +6,14 @@ Route::get('/', 'MainController@index');
 
 Auth::routes();
 
+/* ----- ADMIN ----- */
 Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
-
+    
     // dashboard
     Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
+    Route::get('/', function(){
+        return redirect('/admin/dashboard');
+    });
 
     // Orders
     Route::resource('/orders','Admin\OrderController');
@@ -44,6 +48,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
 
 });
 
+/* ----- CUSTOMER ----- */
 Route::prefix('customer')->middleware(['auth','customer'])->group(function(){
     Route::get('/dashboard', 'Customer\CustomerController@index')->name('customer');
 });
