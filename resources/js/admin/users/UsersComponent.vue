@@ -31,12 +31,12 @@
                                     <td style="vertical-align: middle;">{{user.email}}</td>
                                     <td style="vertical-align: middle;">{{user.role}}</td>
                                     <td style="vertical-align: middle;">{{user.created_at | moment("dddd, MMMM Do YYYY")}}</td>
-                                    <td style="vertical-align: middle;"><a :href="'/admin/users/'+user.id" class="btn btn-sm border">Voir Profil</a></td>
+                                    <td style="vertical-align: middle;"><a :href="'/admin/users/'+user.id" class="btn btn-sm border"><i class="fas fa-eye"></i> Aperçu</a></td>
                                     <td style="vertical-align: middle;">
                                         <form :action="'/admin/users/'+user.id" method="post">
                                             <input type="hidden" name="_token" :value="csrf">
                                             <input type="hidden" name="_method" value="delete">
-                                            <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+                                            <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i> Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>

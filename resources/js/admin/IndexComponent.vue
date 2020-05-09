@@ -145,7 +145,7 @@
                       <img :src="'/storage/images/products/'+product.image" alt="Product Image" class="img-size-50">
                     </div>
                     <div class="product-info text-sm">
-                      <a href="javascript:void(0)" class="product-title">{{product.name.length > 30 ? product.name.substring(0,30)+'...' : product.name}}
+                      <a :href="'products/' + product.id + '/edit'" class="product-title">{{product.name.length > 30 ? product.name.substring(0,30)+'...' : product.name}}
                         <span class="badge badge-warning float-right">{{product.price}} Dh</span></a>
                       <span class="product-description">
                         {{product.description}}

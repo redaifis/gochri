@@ -2,32 +2,44 @@
     <div class="row">
         
         <div class="col-12 col-md-6">
-            <div class="card card-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="card-body row">
-                    
-                    <div class="col-12 col-md-8">
-                        <p class="display-4">{{user.name}}</p>
-                        <p><span class="font-weight-bold">Rôle:</span> {{user.role}}</p>
-                        <p><span class="font-weight-bold">Email:</span> {{user.email}}</p>
-                        <p><span class="font-weight-bold">Téléphone:</span> {{user.phone != null ? user.phone : 'N/A'}}</p>
-                        <p><span class="font-weight-bold">Pays:</span> {{user.country != null ? user.country : 'N/A'}}</p>
-                        <p><span class="font-weight-bold">Ville:</span> {{user.city != null ? user.city : 'N/A'}}</p>
-                        <span class="font-weight-bold">Adresse:</span><p> {{user.address != null ? user.address : 'N/A'}}</p>
-                        <p><span class="font-weight-bold">Commandes:</span> {{user.orders_count}}</p>
-                    </div>
-                    
-                    <div class="col-12 col-md-4">
-                        <div class="row justify-content-center">
-                            <img class="img-circle elevation-2" :src="'/storage/images/profiles/'+user.image" alt="User Avatar" style="width:80%">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <img class="img-circle elevation-2" :src="'/storage/images/profiles/'+user.image" alt="User Avatar" style="max-width:100px">
                         </div>
-                        <div class="row justify-content-center">
-                            <button class="btn btn-primary border mt-4">Contacter</button>
+                        <div class="col-12 text-center my-2">
+                            <h2 class="mb-1">{{user.name}}</h2>
+                            <p class="m-0">{{user.role}}</p>
                         </div>
                     </div>
-                    <!-- /.row -->
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="mb-4 mt-2">Informations sur l'utilisateur:</h5>
+                        </div>
+                        <div class="col-6">
+                            <p><span class="font-weight-bold">Email:</span> <span :class="user.Email === null ? 'font-italic' : ''">{{user.email}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><span class="font-weight-bold">Téléphone:</span> <span :class="user.phone === null ? 'font-italic' : ''">{{user.phone !== null ? user.phone : 'Non disponible'}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><span class="font-weight-bold">Pays:</span> <span :class="user.country === null ? 'font-italic' : ''">{{user.country !== null ? user.country : 'Non disponible'}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><span class="font-weight-bold">Ville:</span> <span :class="user.city === null ? 'font-italic' : ''">{{user.city !== null ? user.city : 'Non disponible'}}</span></p>
+                        </div>
+                        <div class="col-12">
+                            <p><span class="font-weight-bold">Adresse:</span> <span  :class="user.address === null ? 'font-italic' : ''">{{user.address !== null ? user.address : 'Non disponible'}}</span></p>
+                        </div>
+                        <div class="col-12">
+                            <p><span class="font-weight-bold">Nombre de commandes:</span> <span :class="user.orders_count === null ? 'font-italic' : ''"></span>{{user.orders_count}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
 
         <div class="col-12 col-md-6">
@@ -112,8 +124,5 @@ export default {
 </script>
 
 <style scoped>
-span{
-    display: inline-block;
-    width:100px
-}
+
 </style>

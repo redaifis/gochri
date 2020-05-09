@@ -62,7 +62,7 @@
                             </div>
                             <div class="custom-file">
                                 <input id="image" type="file" name="image" class="custom-file-input" aria-describedby="image">
-                                <label class="custom-file-label" for="image">Choiser l'image</label>
+                                <label class="custom-file-label" for="image">Choisir l'image</label>
                             </div>
                         </div>
                     </div>

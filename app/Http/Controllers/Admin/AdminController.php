@@ -40,15 +40,17 @@ class AdminController extends Controller
     public function updateProfile(Request $request, $id)
     {
         $request->validate([
-            'name' => 'string|max:80|nullable',
-            'image' => 'image|nullable',
-            'country' => 'string|nullable',
-            'city' => 'string|nullable',
-            'address' => 'string|nullable',
-            'phone' => 'string|nullable',
+            'name' => 'string|min:3|max:80',
+            'image' => 'image',
+            'country' => 'string',
+            'city' => 'string',
+            'address' => 'string',
+            'phone' => 'string|regex:/(06)[0-9]{8}/',
         ],[
-            'name' => 'Le nom à depassé 80 caractères!',
+            'name.max' => 'Le nom à depassé 80 caractères!',
+            'name.min' => 'Le nom doit contenir au minumum 3 charactère!',
             'image.image' => 'Le photo doit etre un image!',
+            'phone.regex' => 'Le numèro téléphone est invalide!',
         ]);
 
         $user = User::findOrFail($id);
