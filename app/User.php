@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Billable;
 
 
@@ -44,5 +45,9 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Order');
     
+    }
+
+    public function isAdmin(){
+        return Auth::user()->role === 'admin';
     }
 }

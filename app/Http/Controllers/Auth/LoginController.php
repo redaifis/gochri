@@ -41,10 +41,6 @@ class LoginController extends Controller
                     $this->redirectTo = '/customer/dashboard';
                 return $this->redirectTo;
                 break;
-            case 'supplier':
-                $this->redirectTo = '/supplier/dashboard';
-                return $this->redirectTo;
-                break;
             default:
                 $this->redirectTo = '/login';
                 return $this->redirectTo;

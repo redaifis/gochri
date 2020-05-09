@@ -20,14 +20,10 @@ class RedirectIfAuthenticated
     {
         
         if (Auth::guard($guard)->check()) {
-            if($request->user()->role == 'admin'){
+            if($request->user()->isAdmin()){
                 return redirect(RouteServiceProvider::ADMIN);
-            }
-            if($request->user()->role == 'customer'){
+            }else{
                 return redirect(RouteServiceProvider::CUSTOMER);
-            }
-            if($request->user()->role == 'supplier'){
-                return redirect(RouteServiceProvider::SUPPLIER);
             }
         }
 

@@ -15,7 +15,7 @@ class CustomerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->role == "admin"){
+        if($request->user()->isAdmin()){
             return redirect('/admin/dashboard');
         }
         return $next($request);

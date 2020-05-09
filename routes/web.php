@@ -44,6 +44,6 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
 
 });
 
-// Route::prefix('customer')->middleware(['auth','customer'])->group(function(){
-//     Route::get('/dashboard', 'Customer\CustomerController@index')->name('customer');
-// });
+Route::prefix('customer')->middleware(['auth','customer'])->group(function(){
+    Route::get('/dashboard', 'Customer\CustomerController@index')->name('customer');
+});
