@@ -3,7 +3,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 // for testing only
-Vue.component('checkout-component', require('./app/test/Checkout.vue').default);
+Vue.component('dashboard', require('./app/customer/dashboard/Dashboard.vue').default);
 
 
 const app = new Vue({

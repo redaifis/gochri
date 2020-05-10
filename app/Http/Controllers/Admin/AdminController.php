@@ -26,7 +26,7 @@ class AdminController extends Controller
         $users_count = User::all()->count();
         $orders_count = Order::all()->count();
         $products_count = Product::all()->count();
-        return view('admin.index',['orders' => $orders, 'products' => $products, 'users_count' => $users_count, 'orders_count' => $orders_count, 'products_count' => $products_count]);
+        return view('admin.dashboard',['orders' => $orders, 'products' => $products, 'users_count' => $users_count, 'orders_count' => $orders_count, 'products_count' => $products_count]);
     }
 
 
