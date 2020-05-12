@@ -7,12 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Billable;
+use Laravel\Passport\HasApiTokens;
 
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
-    use Notifiable;
-    use Billable;
+    use HasApiTokens, Notifiable, Billable;
 
 
     /**
@@ -50,4 +50,5 @@ class User extends Authenticatable
     public function isAdmin(){
         return Auth::user()->role === 'admin';
     }
+
 }

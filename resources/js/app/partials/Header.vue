@@ -144,6 +144,7 @@ export default {
     position: absolute;
     top: 70px;
     transition: 700ms all ease;
+    z-index: 999;
 }
 
 

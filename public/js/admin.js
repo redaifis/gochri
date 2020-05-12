@@ -3880,15 +3880,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['users', 'csrf', 'errors'],
+  props: ['csrf', 'errors'],
   data: function data() {
     return {
+      users: [],
       images: null,
       search: '',
       pageOfusers: []
     };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/users').then(function (res) {
+      return _this.users = res.data.users;
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  },
   methods: {
     onChangePage: function onChangePage(pageOfusers) {
       // update page of users
@@ -3897,10 +3906,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filteredList: function filteredList() {
-      var _this = this;
+      var _this2 = this;
 
       return this.users.filter(function (user) {
-        return user.name.toLowerCase().includes(_this.search.toLowerCase());
+        return user.name.toLowerCase().includes(_this2.search.toLowerCase());
       });
     }
   }

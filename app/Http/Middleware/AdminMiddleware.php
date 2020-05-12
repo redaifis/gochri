@@ -15,6 +15,12 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if ($request->expectsJson()) {
+            if(!$request->user()->isAdmin()){
+                return response()->json('Unauthorized',403);
+            }
+            return $next($request);
+        }
         abort_if(!$request->user()->isAdmin(), 403);
         return $next($request);
     }

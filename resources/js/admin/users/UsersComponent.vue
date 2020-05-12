@@ -55,16 +55,19 @@
 <script>
 
 export default {
-    props:['users','csrf','errors'],
+    props:['csrf','errors'],
     data(){
         return{
+            users: [],
             images: null,
             search: '',
             pageOfusers: []
         }
     },
-    mounted(){
-
+    created(){
+        axios.get('/api/users')
+        .then(res => this.users = res.data.users)
+        .catch(err => console.log(err))
     },
     methods: {
         onChangePage(pageOfusers) {
