@@ -18,7 +18,7 @@
         <div class="container-fluid">
           
   
-            <shipping-component :shipping_methods='@json($shipping_methods)'></shipping-component>
+            <shipping-list></shipping-list>
   
   
         </div><!-- /.container-fluid -->

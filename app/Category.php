@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categorie extends Model
+class Category extends Model
 {
+
+    protected $table = "categories";
+
     public function subcategories(){
-        return $this->hasMany('App\Subcategorie');
+        return $this->hasMany('App\Subcategory');
     }
 
     public function products(){

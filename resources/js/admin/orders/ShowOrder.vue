@@ -115,10 +115,10 @@
 
 <script>
 export default {
-    props: ['order'],
+    props: ['data'],
     data() {
         return {
-
+            order: this.data
         }
     },
     computed: {
@@ -143,38 +143,27 @@ export default {
                 cancelButtonText: "Annuler"
             }).then((result) => {
                 if (result.value) {
-
-                    axios.put('/admin/orders/' + this.order.id + '/ship')
-                        .then(res => console.log(res))
-                        .catch(err => console.log(err))
-
-                    this.$swal({
-                        title: 'Succés!',
-                        text: 'La commande a été marquer comme livraisé.',
-                        icon: 'success'
-                    }).then(() => window.location.reload())
+                    axios.put('/api/admin/orders/' + this.order.id + '/shipped')
+                        .then(res => {
+                            this.order.status = res.data.status
+                            this.$swal('Succés!',`${res.data.success}`,'success')
+                        }).catch(err => console.log(err))
                 }
             })
         },
         refund() {
             this.$swal({
                 title: 'Voulez-vous marquer cette commande comme remboursé?',
-                // text: "Rendre cette commande remboursé.",
                 showCancelButton: true,
                 confirmButtonText: "Oui",
                 cancelButtonText: "Annuler"
             }).then((result) => {
                 if (result.value) {
-
-                    axios.put('/admin/orders/' + this.order.id + '/refund')
-                        .then(res => console.log(res))
-                        .catch(err => console.log(err))
-
-                    this.$swal({
-                        title: 'Succés!',
-                        text: 'La commande a été marquer comme livraisé.',
-                        icon: 'success'
-                    }).then(() => window.location.reload())
+                    axios.put('/api/admin/orders/' + this.order.id + '/refunded')
+                        .then(res => {
+                            this.order.status = res.data.status
+                            this.$swal('Succés!',`${res.data.success}`,'success')
+                        }).catch(err => console.log(err))
                 }
             })
         }

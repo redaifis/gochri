@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Subcategorie extends Model
+class Subcategory extends Model
 {
-    public function categorie(){
-        return $this->belongsTo('App\Categorie');
+    protected $table = "subcategories";
+
+    public function category(){
+        return $this->belongsTo('App\Category');
     }
 
     public function products(){

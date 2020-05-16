@@ -3,8 +3,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        
-                        
                         <div class="card-tools row" style="float:none">
                             <div class="col-12 col-md-6 py-2">
                                 <h3 class="card-title flex-start">Tous les produits</h3>
@@ -19,7 +17,7 @@
                             <div class="input-group input-group-sm py-2 col-12 col-md-2">
                                   <select class="form-control float-right" id="searchCategorie" v-model="categorieSearch">
                                         <option value="">Catégorie</option>
-                                        <option v-for="categorie in categories" :key="categorie.id">{{categorie.name}}</option>
+                                        <option v-for="category in categories" :key="category.id">{{category.name}}</option>
                                   </select>
                             </div>
                             <div class="input-group input-group-sm py-2 col-12 col-md-2">
@@ -46,10 +44,14 @@
                                     <td style="vertical-align: middle;">{{product.name.length > 40 ? product.name.substring(0,40)+'...' : product.name}}</td>
                                     <td style="vertical-align: middle;">{{product.price}} Dh</td>
                                     <td style="vertical-align: middle;">{{product.discount != null ? product.discount + '%' : 'N/A'}}</td>
-                                    <td style="vertical-align: middle;">{{product.categorie != null ? product.categorie.name : "N/A"}}</td>
+                                    <td style="vertical-align: middle;">{{product.category != null ? product.category.name : "N/A"}}</td>
                                     <td style="vertical-align: middle;"><span :class="['badge', product.status == 1 ? 'badge-success' : 'badge-warning']">{{product.status == 1 ? 'Publié' : 'Non Publié'}}</span></td>
-                                    <td style="vertical-align: middle;"><a :href="'/admin/products/'+product.id+'/edit'" class="btn btn-default btn-sm border d-flex flex-row"><i class="fas fa-pen pt-1 pr-1"></i> Modifier</a></td>
-                                    <td style="vertical-align: middle;"><button class="btn btn-danger btn-sm d-flex flex-row" @click="deleteProduct(product.id)"><i class="fas fa-trash pt-1 pr-1"></i> Supprimer</button></td>
+                                    <td style="vertical-align: middle;">
+                                        <a :href="'/admin/products/'+product.id+'/edit'" class="btn btn-default btn-sm border d-flex flex-row"><i class="fas fa-pen pt-1 pr-1"></i> Modifier</a>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <button class="btn btn-danger btn-sm d-flex flex-row" @click="deleteProduct(product.id)"><i class="fas fa-trash pt-1 pr-1"></i> Supprimer</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,42 +68,30 @@
 <script>
 
 export default {
-    props:['products', 'categories','csrf','errors','success'],
     data(){
         return{
-            images: null,
             search: '',
             categorieSearch: '',
             status: '',
-            pageOfProducts: []
+            pageOfProducts: [],
+            products: [],
+            categories: []
         }
-    },
-    mounted(){
-
     },
     methods: {
         onChangePage(pageOfProducts) {
             // update page of Products when searching
             this.pageOfProducts = pageOfProducts;
         },
-        showSuccess() {
-            // Show success message if exist
-            this.$swal({
-                icon: 'success',
-                title: this.success,
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                customClass: {
-                    container: 'mb-5 ml-4',
-                },
-                onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-                }
-            })
+        getProducts(){
+            axios.get('/api/admin/products')
+            .then(res => this.products = res.data.products)
+            .catch(err => console.log(err))
+        },
+        getCategories(){
+            axios.get('/api/admin/categories')
+            .then(res => this.categories = res.data.categories)
+            .catch(err => console.log(err))
         },
         deleteProduct(id){
             this.$swal({
@@ -121,24 +111,21 @@ export default {
                     }).then(() => window.location.reload())
                 }
             })
-            
         }
     },
     computed: {
-    
         searched(){
             return this.products.filter(product => {
-                return product.categorie.name.toLowerCase().includes(this.categorieSearch.toLowerCase()) 
+                return product.category.name.toLowerCase().includes(this.categorieSearch.toLowerCase()) 
                 && product.name.toLowerCase().includes(this.search.toLowerCase())
                 && (product.status == this.status || this.status == '')
             })
         }
         
     },
-    mounted(){
-        if(this.success != null){
-            this.showSuccess()
-        }
+    async mounted(){
+        await this.getProducts()
+        await this.getCategories()
     }
 }
 </script>

@@ -5,7 +5,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>{{orders_count}}</h3>
+                <h3>{{data.orders_count}}</h3>
 
                 <p>Commandes</p>
             </div>
@@ -37,7 +37,7 @@
         <!-- small card -->
         <div class="small-box bg-danger">
             <div class="inner">
-            <h3>{{users_count}}</h3>
+            <h3>{{data.users_count}}</h3>
 
             <p>Utilisateurs</p>
             </div>
@@ -55,7 +55,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>{{products_count}}</h3>
+                <h3>{{data.products_count}}</h3>
 
                 <p>Produits</p>
             </div>
@@ -103,7 +103,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="order in orders" :key="order.id">
+                            <tr v-for="order in data.orders" :key="order.id">
                                 <td>{{order.id}}</td>
                                 <td>{{order.created_at | moment('Do MMMM, YYYY, h:mm:ss a')}}</td>
                                 <td>{{order.amount}} Dh</td>
@@ -140,7 +140,7 @@
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                  <li v-for="product in products" :key="product.id" class="item">
+                  <li v-for="product in data.products" :key="product.id" class="item">
                     <div class="product-img">
                       <img :src="'/storage/images/products/'+product.image" alt="Product Image" class="img-size-50">
                     </div>
@@ -170,8 +170,26 @@
 
 <script>
 export default {
-    props:['success','orders','products','users','orders_count','users_count','products_count'],
+    props:['success'],
+    data(){
+        return{
+            data: {
+                orders: [],
+                products: [],
+                users: [],
+                orders_count: null,
+                users_count: null,
+                products_count: null
+            }
+            
+        }
+    },
     methods:{
+        getData(){
+            axios.get('/api/admin/dashboard')
+            .then(res => this.data = res.data)
+            .catch(err => console.log(err))
+        },
         showSuccess() {
             // Show success message if exist
             this.$swal({
@@ -193,7 +211,10 @@ export default {
         },
     },
     mounted(){
-        if(this.success != null){
+
+        this.getData()
+
+        if(this.success !== null){
             this.showSuccess()
         }
     }

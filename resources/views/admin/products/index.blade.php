@@ -18,13 +18,7 @@
     <div class="container-fluid">
       
 
-      <products-component 
-      :products='@json($products)'
-      :categories='@json($categories)'
-      :csrf='@json(csrf_token())' 
-      :errors='@json($errors->all())' 
-      :success='@json(session('success'))'>
-      </products-component>
+      <products-list></products-list>
 
 
     </div><!-- /.container-fluid -->

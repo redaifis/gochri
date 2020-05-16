@@ -1,8 +1,8 @@
 *
 !.gitignore
 !images/
-!images/logo
-!images/logo/*
+!images/assets
+!images/assets/*
 !images/profiles
 !images/profiles/*
 !images/products

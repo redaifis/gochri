@@ -10,39 +10,37 @@ Auth::routes();
 Route::prefix('admin')->middleware(['auth','admin'])->group(function(){
     
     // dashboard
-    Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
+    Route::get('/dashboard', 'Admin\AdminController@dashboard')->name('admin');
     Route::get('/', function(){
         return redirect('/admin/dashboard');
     });
 
     // Orders
-    Route::resource('/orders','Admin\OrderController');
-    Route::put('/orders/{id}/ship','Admin\OrderController@markShipped');
-    Route::put('/orders/{id}/refund','Admin\OrderController@markRefunded');
+    Route::resource('/orders','Admin\OrderController')->except(['store','update','delete']);
 
     // Products
-    Route::resource('/products', 'Admin\ProductController');
+    Route::resource('/products', 'Admin\ProductController')->except(['store','update','delete']);
 
     // Categories
-    Route::resource('/categories', 'Admin\CategorieController');
+    Route::get('/categories', 'Admin\CategoryController@index');
 
     // Subcategories
-    Route::resource('/subcategories', 'Admin\SubcategorieController');
+    Route::get('/subcategories', 'Admin\SubcategoryController@index');
+    Route::get('/subcategories/create', 'Admin\SubcategoryController@create');
+    Route::post('/subcategories', 'Admin\SubcategoryController@store');
 
     // Users
-    Route::resource('/users', 'Admin\UserController');
+    Route::resource('/users', 'Admin\UserController')->except(['store','update','delete']);
 
     // Edit Profile
     Route::get('/profile/{id}/edit','Admin\AdminController@editProfile');
-    Route::put('/profile/{id}','Admin\AdminController@updateProfile');
-    Route::put('/profile/password/{id}','Admin\AdminController@changePassword');
 
     /* ----- Settings ----- */
     Route::get('/settings','Admin\AdminController@settings');
+
     // Shipping
     Route::get('/settings/shipping','Admin\AdminController@shipping');
-    Route::post('/settings/shipping','Admin\AdminController@addShipping');
-    Route::delete('/settings/shipping/{id}','Admin\AdminController@deleteShipping');
+
     // Payment
     Route::get('/settings/payment','Admin\AdminController@payment');
 

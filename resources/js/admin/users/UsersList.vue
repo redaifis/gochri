@@ -33,9 +33,7 @@
                                     <td style="vertical-align: middle;">{{user.created_at | moment("dddd, MMMM Do YYYY")}}</td>
                                     <td style="vertical-align: middle;"><a :href="'/admin/users/'+user.id" class="btn btn-sm border"><i class="fas fa-eye"></i> Aperçu</a></td>
                                     <td style="vertical-align: middle;">
-                                        <form :action="'/admin/users/'+user.id" method="post">
-                                            <input type="hidden" name="_token" :value="csrf">
-                                            <input type="hidden" name="_method" value="delete">
+                                        <form @submit.prevent="deleteUser(user.id)">
                                             <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i> Supprimer</button>
                                         </form>
                                     </td>
@@ -55,7 +53,6 @@
 <script>
 
 export default {
-    props:['csrf','errors'],
     data(){
         return{
             users: [],
@@ -64,25 +61,39 @@ export default {
             pageOfusers: []
         }
     },
-    created(){
-        axios.get('/api/users')
-        .then(res => this.users = res.data.users)
-        .catch(err => console.log(err))
+    mounted(){
+        this.getUsers()
     },
     methods: {
         onChangePage(pageOfusers) {
             // update page of users
             this.pageOfusers = pageOfusers;
+        },
+        getUsers(){
+            axios.get('/api/admin/users')
+            .then(res => this.users = res.data.users)
+            .catch(err => console.log(err))
+        },
+        deleteUser(userId){
+            this.$swal({
+                title: 'Voulez-vous supprimer cet utilisateur?',
+                showCancelButton: true,
+                preConfirm: () => {
+                    axios.delete(`/api/admin/users/${userId}`)
+                    .then(res => {
+                        this.getUsers()
+                        this.$swal('Succés',`${res.data.success}`,'success')
+                    })
+                    .catch(err => console.log(err))
+                }
+            })
         }
     },
     computed: {
         filteredList() {
-            
             return this.users.filter(user => {
                 return user.name.toLowerCase().includes(this.search.toLowerCase())
             })
-            
-            
         }
     }
 }

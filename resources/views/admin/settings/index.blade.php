@@ -18,7 +18,7 @@
         <div class="container-fluid">
           
   
-            <settings-component></settings-component>
+            <settings-list></settings-list>
   
   
         </div><!-- /.container-fluid -->

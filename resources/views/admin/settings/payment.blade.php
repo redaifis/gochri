@@ -18,7 +18,7 @@
         <div class="container-fluid">
           
   
-            <payment-component></payment-component>
+            <edit-payment></edit-payment>
   
   
         </div><!-- /.container-fluid -->

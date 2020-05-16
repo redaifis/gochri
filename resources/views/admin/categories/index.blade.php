@@ -18,7 +18,7 @@
     <div class="container-fluid">
       
 
-      <categories-component :categories='@json($categories)' :csrf='@json(csrf_token())' :errors='@json($errors->all())' :success='@json(session('success'))'></categories-component>
+      <categories-list></categories-list>
 
 
     </div><!-- /.container-fluid -->

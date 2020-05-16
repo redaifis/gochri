@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-    public function categorie(){
-        return $this->belongsTo('App\Categorie');
+    public function category(){
+        return $this->belongsTo('App\Category');
     }
 
-    public function subcategorie(){
-        return $this->belongsTo('App\Subcategorie');
+    public function subcategory(){
+        return $this->belongsTo('App\Subcategory');
     }
 
     public function images(){

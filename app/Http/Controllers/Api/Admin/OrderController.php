@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Order;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at','desc')->get();
-        return response()->json(['users' => $users],200);
+        $orders = Order::orderBy('created_at','desc')->with(['products','user'])->get();
+        return response()->json(['orders' => $orders],200);
     }
 
     /**
@@ -26,17 +26,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }
@@ -62,5 +51,19 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function markShipped($id){
+        $order = Order::findOrFail($id);
+        $order->status = 'Livraisé';
+        $order->save();
+        return response()->json(['status' => $order->status, 'success' => 'La commande a été marqué comme livraisé!'], 200);
+    }
+
+    public function markRefunded($id){
+        $order = Order::findOrFail($id);
+        $order->status = 'Remboursé';
+        $order->save();
+        return response()->json(['status' => $order->status, 'success' => 'La commande a été marqué comme remboursé!'], 200);
     }
 }

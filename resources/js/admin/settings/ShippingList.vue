@@ -36,8 +36,17 @@
 
 <script>
 export default {
-    props:['shipping_methods'],
-    methods:{
+    data(){
+        return{
+            shipping_methods: []
+        }
+    },
+    methods: {
+        getMethods(){
+            axios.get('/api/admin/settings/shipping')
+            .then(res => this.shipping_methods = res.data.shipping_methods)
+            .catch(err => console.log(err))
+        },
         addMethod(){
             this.$swal({
                 title: 'Ajouter une méthode de livraison',
@@ -54,24 +63,19 @@ export default {
                     ]
                 }
            }).then(data => {
-               axios.post('/admin/settings/shipping', {
+               axios.post('/api/admin/settings/shipping', {
                    name: data.value[0],
                    price: data.value[1],
                    time: data.value[2]
                }).then(res => {
-                    this.$swal({
-                        title: 'Succés',
-                        icon: 'success'
-                    }).then(() => window.location.reload())
-                })
-                .catch(err => {
-                    this.$swal({
-                        title: 'Erreur!',
-                        icon: 'warning'
-                    })
+                   console.log(res)
+                   this.getMethods()
+                   this.$swal('Succés!',`${res.data.success}`,'success')
+               }).catch(err => {
+                   console.log(err)
+                   this.$swal('Succés!',null,'error')
                 })
            })
-           
         },
         deleteMethod(id){
             this.$swal({
@@ -82,23 +86,21 @@ export default {
                 cancelButtonText: 'Annuler',
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
-                    axios.delete('/admin/settings/shipping/'+id)
+                    axios.delete('/api/admin/settings/shipping/'+id)
                     .then(res => {
-                        this.$swal({
-                            title: 'Succés',
-                            icon: 'success'
-                        }).then(() => window.location.reload())
+                        this.getMethods()
+                        this.$swal('Succés',`${res.data.success}`,'success')
                     })
                     .catch(err => {
-                        this.$swal({
-                            title: 'Erreur!',
-                            icon: 'warning'
-                        })
+                        console.log(err)
+                        this.$swal('Succés',null,'success')
                     })
                 }
             })
-        },
-
+        }
+    },
+    mounted(){
+        this.getMethods()
     }
 }
 </script>

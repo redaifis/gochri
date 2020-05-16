@@ -4,7 +4,6 @@
                 <div class="card">
                     <div class="card-header">
                         
-
                         <div class="card-tools row" style="float:none">
                             <div class="col-12 col-md-8 py-2">
                                 <h3 class="card-title flex-start">Tous les commandes</h3>
@@ -18,14 +17,6 @@
                                     <option value="Remboursé">Remboursé</option>
                                 </select>
                             </div>
-                            <!-- <div class="input-group input-group-sm col-12 col-md-2 py-2">
-                                <select class="form-control float-right" id="paiement" v-model="payment">
-                                    <option value="">Paiement</option>
-                                    <option value="Payé">Payé</option>
-                                    <option value="En attente">En attente</option>
-                                    <option value="Remboursé">Remboursé</option>
-                                </select>
-                            </div> -->
                             <div class="input-group input-group-sm col-12 col-md-2 py-2">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Nom de client.." v-model="search">
 
@@ -55,7 +46,9 @@
                 
                                     <td style="vertical-align: middle;">{{order.amount}} Dh</td>
 
-                                    <td style="vertical-align: middle;text-align: center;"><a :href="'/admin/orders/'+order.id" class="btn btn-default btn-sm border"><i class="fas fa-eye"></i> Aperçu</a></td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        <a :href="'/admin/orders/'+order.id" class="btn btn-default btn-sm border"><i class="fas fa-eye"></i> Aperçu</a>
+                                    </td>
                                     
                                 </tr>
                             </tbody>
@@ -72,19 +65,14 @@
 
 <script>
 export default {
-    props:['orders','csrf','errors','success'],
     data(){
         return{
             images: null,
             search: '',
             status: '',
             payment: '',
+            orders: [],
             pageOforders: []
-        }
-    },
-    mounted(){
-        if(this.success != null){
-            this.showSuccess()
         }
     },
     methods: {
@@ -92,28 +80,8 @@ export default {
             // update page of orders
             this.pageOforders = pageOforders;
         },
-        showSuccess() {
-            // Show success message if exist
-            this.$swal({
-                icon: 'success',
-                title: this.success,
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                customClass: {
-                    container: 'mb-5 ml-4',
-                },
-                onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-                }
-            })
-        },
     },
     computed: {
-        
         searched(){
             return this.orders.filter(order => {
                 return order.user.name.toLowerCase().includes(this.search.toLowerCase())
@@ -121,7 +89,12 @@ export default {
 
             })
         }
-    }
+    },
+    mounted(){
+        axios.get(`/api/admin/orders`)
+        .then(res => this.orders = res.data.orders)
+        .catch(err => console.log(err))
+    },
 }
 </script>
 

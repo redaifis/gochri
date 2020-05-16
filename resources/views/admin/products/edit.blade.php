@@ -8,12 +8,6 @@
         <div class="col-12">
           <h1 class="m-0 text-dark">Modifier un produit</h1>
         </div><!-- /.col -->
-        {{-- <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard v1</li>
-          </ol>
-        </div><!-- /.col --> --}}
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
@@ -24,7 +18,7 @@
     <div class="container-fluid">
       
 
-      <edit-product :product='@json($product)' :subcategories='@json($subcategories)' :csrf='@json(csrf_token())' :errors='@json($errors->all())'></edit-product>
+      <edit-product :product='@json($product)'></edit-product>
 
 
     </div><!-- /.container-fluid -->
@@ -32,4 +26,8 @@
   <!-- /.content -->
 
   
+@endsection
+
+@section('scripts')
+<script src="https://cdn.rawgit.com/cretueusebiu/412715093d6e8980e7b176e9de663d97/raw/aea128d8d15d5f9f2d87892fb7d18b5f6953e952/objectToFormData.js"></script>
 @endsection

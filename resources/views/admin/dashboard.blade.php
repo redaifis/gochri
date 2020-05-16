@@ -17,15 +17,7 @@
       <section class="content">
         <div class="container-fluid">
           
-          <index-component 
-          :orders='@json($orders)' 
-          :products='@json($products)' 
-          :users_count='@json($users_count)' 
-          :products_count='@json($products_count)' 
-          :orders_count='@json($orders_count)' 
-          :success='@json(session('success'))'>
-          </index-component>
-  
+          <admin-dashboard :success='@json(session('success'))'></admin-dashboard>
   
         </div><!-- /.container-fluid -->
       </section>

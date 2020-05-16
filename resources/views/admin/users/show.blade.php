@@ -18,7 +18,7 @@
     <div class="container-fluid">
       
 
-      <show-user :user='@json($user)' :csrf='@json(csrf_token())' :errors='@json($errors->all())'></show-user>
+      <show-user></show-user>
 
 
     </div><!-- /.container-fluid -->
@@ -26,4 +26,10 @@
   <!-- /.content -->
 
   
+@endsection
+
+@section('scripts')
+  <script>
+    window.userId = {!! $userId !!}
+  </script>
 @endsection

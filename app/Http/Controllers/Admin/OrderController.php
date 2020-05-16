@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Order;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -15,29 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at','desc')->with(['products','user'])->get();
-        return view('admin.orders.index',['orders' => $orders]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('admin.orders.index');
     }
 
     /**
@@ -48,57 +25,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        
-        $order = Order::where('id','=',$id)->with(['products','shipping','user'])->first();
-        return view('admin.orders.show', ['order' => $order]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        
-    }
-
-
-    public function markShipped($id){
-        $order = Order::findOrFail($id);
-        $order->status = 'Livraisé';
-        $order->save();
-        return response()->json('La commande a été marqué comme livraisé!',200);
-    }
-
-    public function markRefunded($id){
-        $order = Order::findOrFail($id);
-        $order->status = 'Remboursé';
-        $order->save();
-        return response()->json('La commande a été marqué comme remboursé!',200);
+        $order = Order::where('id',$id)->with(['products','shipping','user'])->first();
+        return view('admin.orders.show',['order' => $order]);
     }
 }

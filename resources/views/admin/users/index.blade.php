@@ -18,7 +18,7 @@
     <div class="container-fluid">
       
 
-      <users-component :users='@json($users)' :csrf='@json(csrf_token())' :errors='@json($errors->all())'></users-component>
+      <users-list></users-list>
 
 
     </div><!-- /.container-fluid -->

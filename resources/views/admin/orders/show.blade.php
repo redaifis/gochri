@@ -18,7 +18,7 @@
     <div class="container-fluid">
       
 
-        <show-order :order='@json($order)'></show-order>
+        <show-order :data='@json($order)'></show-order>
 
 
     </div><!-- /.container-fluid -->

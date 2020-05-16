@@ -28,7 +28,7 @@ Vue.use(VueSweetalert2);
  */
 
 // Admin Dashboard
-Vue.component('index-component', require('./admin/IndexComponent.vue').default);
+Vue.component('admin-dashboard', require('./admin/AdminDashboard.vue').default);
 
 /* ------- Orders -------- */
 const orders = require.context('./admin/orders', true, /\.vue$/i)
@@ -39,11 +39,11 @@ const products = require.context('./admin/products', true, /\.vue$/i)
 products.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], products(key).default))
 
 /* ------- Categories ------- */
-const categories = require.context('./admin/categories', true, /\.vue$/i)
+const categories = require.context('./admin/products', true, /\.vue$/i)
 categories.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], categories(key).default))
 
 /* ------- Subcategories ------- */
-const subcategories = require.context('./admin/subcategories', true, /\.vue$/i)
+const subcategories = require.context('./admin/products', true, /\.vue$/i)
 subcategories.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], subcategories(key).default))
 
 /* ------- Users ------- */

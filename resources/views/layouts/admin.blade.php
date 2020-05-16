@@ -81,7 +81,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/admin/dashboard" class="brand-link text-center">
-      <span class="brand-text font-weight-light"><img src="/storage/images/logo/gochri.png" alt="gochri logo" style="max-width:40%"></span>
+      <span class="brand-text font-weight-light"><img src="/storage/images/assets/gochri.png" alt="gochri logo" style="max-width:40%"></span>
     </a>
 
     <!-- Sidebar -->
@@ -166,14 +166,9 @@
                   <p>Voir tous</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/admin/categories/create" class="nav-link {{ Request::is('admin/categories/create') ? 'active' : ''}}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter</p>
-                </a>
-              </li>
+              
               <li class="nav-item has-treeview {{ Request::is('admin/subcategories/*') || Request::is('admin/subcategories') ? 'menu-open' : ''}}">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ Request::is('admin/subcategories') || Request::is('admin/subcategories/*') ? 'active' : ''}}">
                   {{-- <i class="fas fa-boxes nav-icon"></i> --}}
                   
                   <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>

@@ -17,7 +17,7 @@
   <section class="content">
     <div class="container-fluid">
       
-      <subcategories-component :subcategories='@json($subcategories)' :csrf='@json(csrf_token())' :errors='@json($errors->all())' :success='@json(session('success'))'></subcategories-component>
+      <subcategories-list :success='@json(session('success'))'></subcategories-list>
 
     </div><!-- /.container-fluid -->
   </section>

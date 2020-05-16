@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row my-2">
         <div class="col-12">
-          <h1 class="m-0 text-dark">Ajouter un sous-catégorie</h1>
+          <h1 class="m-0 text-dark">Ajouter des sous-catégorie</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
     <div class="container-fluid">
       
 
-      <create-subcategorie :categories='@json($categories)' :csrf='@json(csrf_token())' :errors='@json($errors->all())'></create-subcategorie>
+      <create-subcategory :csrf='@json(csrf_token())' :errors='@json($errors->all())'></create-subcategory>
 
 
     </div><!-- /.container-fluid -->
