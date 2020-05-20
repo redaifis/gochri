@@ -99,16 +99,12 @@ export default {
                 showCancelButton: true,
                 confirmButtonText: "Oui",
                 cancelButtonText: "Annuler",
-            }).then((result) => {
-            if (result.value) {
-
-                axios.delete("/admin/products/"+id)
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
-
-                this.$swal({
-                    title: 'Le produit a été supprimé avec succés!',
-                    }).then(() => window.location.reload())
+                preConfirm: () => {
+                    axios.delete('/api/admin/products/'+id)
+                    .then(res => {
+                        this.getProducts()
+                        this.$swal('Succés!',`${res.data.success}`,'success')
+                    }).catch(err => console.log(err))
                 }
             })
         }
@@ -123,9 +119,9 @@ export default {
         }
         
     },
-    async mounted(){
-        await this.getProducts()
-        await this.getCategories()
+    mounted(){
+        this.getProducts()
+        this.getCategories()
     }
 }
 </script>

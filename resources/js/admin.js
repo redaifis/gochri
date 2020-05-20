@@ -8,7 +8,7 @@ require('moment/locale/fr')
 Vue.use(require('vue-moment'), {
     moment
 })
- 
+
 // register jw pagination component globally
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
@@ -39,11 +39,11 @@ const products = require.context('./admin/products', true, /\.vue$/i)
 products.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], products(key).default))
 
 /* ------- Categories ------- */
-const categories = require.context('./admin/products', true, /\.vue$/i)
+const categories = require.context('./admin/categories', true, /\.vue$/i)
 categories.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], categories(key).default))
 
 /* ------- Subcategories ------- */
-const subcategories = require.context('./admin/products', true, /\.vue$/i)
+const subcategories = require.context('./admin/subcategories', true, /\.vue$/i)
 subcategories.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], subcategories(key).default))
 
 /* ------- Users ------- */

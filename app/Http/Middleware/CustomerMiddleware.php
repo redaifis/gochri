@@ -15,9 +15,9 @@ class CustomerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->isAdmin()){
-            return redirect('/admin/dashboard');
+        if($request->user()->isCustomer()){
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/admin/dashboard');
     }
 }

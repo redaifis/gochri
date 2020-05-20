@@ -65,6 +65,9 @@
                             </div>
                         </div>
                     </form>
+
+                    <a href="{{ route('login.provider', 'google') }}" class="btn btn-danger">{{ __('Google Sign in') }}</a>
+                    <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-primary">{{ __('Facebook Sign in') }}</a>
                 </div>
             </div>
         </div>
@@ -72,3 +75,34 @@
 </div>
 
 @endsection
+
+{{-- @section('scripts')
+
+    <script>
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    </script>
+    <script>
+        window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '{your-app-id}',
+            cookie     : true,
+            xfbml      : true,
+            version    : '{api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+        };
+
+        (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+@endsection --}}

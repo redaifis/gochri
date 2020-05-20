@@ -16,13 +16,13 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('admin-lte/dist/css/adminlte.min.css')}}">
-  
+
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-  
+
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-  
+
   <!-- Extra Styles -->
   @yield('styles')
 
@@ -42,10 +42,10 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link">GOCHRI</a>
       </li>
-      
+
     </ul>
 
-    
+
     <!-- Authentication Links -->
     <ul class="navbar-nav ml-auto">
     @guest
@@ -59,7 +59,7 @@
       @endif
       @else
           <li class="nav-item">
-              
+
 
                   <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
@@ -71,7 +71,7 @@
                       @csrf
                   </form>
           </li>
-      
+
     @endguest
     </ul>
   </nav>
@@ -86,12 +86,12 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      
+
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-4 pb-4 mb-4 d-flex align-items-center">
         <div class="image">
-          <img src="/storage/images/profiles/{{Auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ Str::contains(Auth::user()->image, 'https://') ? Auth::user()->image : '/storage/images/profiles/' . Auth::user()->image }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="/admin/profile/{{Auth::id()}}/edit" class="d-block"><p class="m-0">{{Auth::user()->name}}</p></a>
@@ -145,7 +145,7 @@
                   <p>Nouveau produit</p>
                 </a>
               </li>
-              
+
             </ul>
           </li>
 
@@ -153,7 +153,7 @@
           <li class="nav-item has-treeview {{ Request::is('admin/categories/*') || Request::is('admin/categories') || Request::is('admin/subcategories/*') || Request::is('admin/subcategories') ? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{ Request::is('admin/categories/*') || Request::is('admin/categories') || Request::is('admin/subcategories/*') || Request::is('admin/subcategories') ? 'active' : ''}}">
               <i class="fa fa-list nav-icon" aria-hidden="true"></i>
-              
+
               <p>
                 Les catégories
                 <i class="fas fa-angle-left right"></i>
@@ -166,16 +166,16 @@
                   <p>Voir tous</p>
                 </a>
               </li>
-              
+
               <li class="nav-item has-treeview {{ Request::is('admin/subcategories/*') || Request::is('admin/subcategories') ? 'menu-open' : ''}}">
                 <a href="#" class="nav-link {{ Request::is('admin/subcategories') || Request::is('admin/subcategories/*') ? 'active' : ''}}">
                   {{-- <i class="fas fa-boxes nav-icon"></i> --}}
-                  
+
                   <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
                   <p>
                     Les sous-catégories
                     <i class="fas fa-angle-left right"></i>
-                    
+
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -191,10 +191,10 @@
                       <p>Ajouter</p>
                     </a>
                   </li>
-                  
+
                 </ul>
               </li>
-              
+
             </ul>
           </li>
 
@@ -205,7 +205,7 @@
                   <i class="fas fa-user-friends nav-icon"></i>
                   <p>
                     Les utilisateurs
-                    
+
                   </p>
                 </a>
               </li>
@@ -230,10 +230,10 @@
       </nav>
       <!-- /.sidebar-menu -->
 
-      
-      
 
-       
+
+
+
 
     </div>
     <!-- /.sidebar -->
@@ -241,23 +241,23 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" id="admin">
-    
+
 
     @yield('content')
 
-    
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer text-sm">
 
     <a href="/" class="text-warning float-left mr-2">Gochri.com</a>
-    
+
     <span>Copyright &copy; 2020-2021 </span>
-     
+
     <div class="float-right">
       All rights reserved.
     </div>
-    
+
   </footer>
 
   <!-- Control Sidebar -->

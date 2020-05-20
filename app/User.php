@@ -10,7 +10,7 @@ use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, Billable;
 
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'provider_name', 'provider_id', 'password', 'remember_token',
     ];
 
     /**
@@ -44,11 +44,15 @@ class User extends Authenticatable
 
     public function orders(){
         return $this->hasMany('App\Order');
-    
+
     }
 
     public function isAdmin(){
         return Auth::user()->role === 'admin';
+    }
+
+    public function isCustomer(){
+        return Auth::user()->role === 'customer';
     }
 
 }

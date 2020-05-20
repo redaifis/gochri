@@ -26,7 +26,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="user in pageOfusers" :key="user.id">
-                                    <td style="vertical-align: middle;"><img :src="'/storage/images/profiles/'+user.image" alt="Profile picture" class="rounded-circle" style="width:50px;height:50px;object-fit:cover;"></td>
+                                    <td style="vertical-align: middle;"><img :src="user.image.includes('https://') ? user.image : '/storage/images/profiles/'+user.image" alt="Profile picture" class="rounded-circle" style="width:50px;height:50px;object-fit:cover;"></td>
                                     <td style="vertical-align: middle;">{{user.name}}</td>
                                     <td style="vertical-align: middle;">{{user.email}}</td>
                                     <td style="vertical-align: middle;">{{user.role}}</td>
@@ -44,7 +44,7 @@
                     <div class="card-footer pb-0 pt-3 text-center">
                         <jw-pagination :items="filteredList" @changePage="onChangePage"></jw-pagination>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

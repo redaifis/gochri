@@ -56,7 +56,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <div class="d-flex justify-content-center mb-4">
-                        <img class="shadow-sm" :src="'/storage/images/profiles/'+(profile.image || 'default_profile.jpg')" alt="Profil picture" style="width:80px;height:80px;border-radius:100%">
+                        <img class="shadow-sm" :src="profile.image.includes('https://') ? profile.image : '/storage/images/profiles/'+profile.image" alt="Profil picture" style="width:80px;height:80px;border-radius:100%">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

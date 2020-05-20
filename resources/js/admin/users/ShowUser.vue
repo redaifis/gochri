@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center">
-                            <img class="img-circle elevation-2" :src="'/storage/images/profiles/'+(user.image || 'default_profile.jpg')" alt="User Avatar" style="max-width:100px">
+                            <img class="img-circle elevation-2" :src="user.image.includes('https://') ? user.image : '/storage/images/profiles/'+user.image" alt="User Avatar" style="max-width:100px">
                         </div>
                         <div class="col-12 text-center my-2">
                             <h2 class="mb-1">{{user.name}}</h2>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="col-12 col-md-6">
@@ -66,9 +66,9 @@
                         <td>{{order.status}}</td>
                         <td><a :href="'/admin/orders/'+order.id" class="btn btn-default btn-sm border d-flex flex-row align-items-center"><i class="fas fa-eye mr-1"></i> Aperçu</a></td>
                     </tr>
-                    
+
                   </tbody>
-                  
+
                 </table>
                 <div class="card-footer text-center">
                       <a href="#" class="text-dark">Voir toutes les commandes</a>
@@ -77,7 +77,7 @@
               <!-- /.card-body -->
             </div>
         </div>
-        
+
     </div>
 
 </template>

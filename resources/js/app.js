@@ -2,8 +2,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// for testing only
-// Vue.component('dashboard', require('./app/customer/dashboard/Dashboard.vue').default);
+// Checkout
+Vue.component('checkout-component', require('./app/checkout/Checkout.vue').default);
 
 /* ------- Customer -------- */
 const customer = require.context('./app/customer', true, /\.vue$/i)
