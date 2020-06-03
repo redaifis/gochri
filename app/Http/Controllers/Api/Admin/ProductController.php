@@ -61,9 +61,9 @@ class ProductController extends Controller
         $category = $subcategory->category()->first();
 
         $product = new Product;
-        
+
         if($request->hasFile('image')){
-            $imageName = Str::random(20).'.'.$request->image->extension();
+            $imageName = Str::random(10).'.'.$request->image->extension();
             if($request->image->move(public_path('storage/images/products'),$imageName)){
                 $product->image = $imageName;
             }
@@ -133,12 +133,12 @@ class ProductController extends Controller
             'discount.required'  => 'Le promotions doit être un nombre!',
             'vendor.regex'  => 'Le nom de fournisseur est invalide!',
         ]);
-            
+
         $subcategory = Subcategory::findOrFail($request->subcategory['id']);
         $category = $subcategory->category()->first();
 
         $product = Product::findOrFail($id);
-        
+
         // if($request->hasFile('image')){
         //     if($product->image !== 'default_product.png'){
         //         File::delete(public_path('storage/images/products/'.$product->image));
@@ -152,7 +152,7 @@ class ProductController extends Controller
         //         if($request->image->move(public_path('storage/images/products'),$imageName)){
         //             $product->image = $imageName;
         //         }
-                
+
         //     }
         // }
 
@@ -187,13 +187,13 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        
+
         if($product->image !== 'default_product.png'){
             File::delete(public_path('storage/images/products/'.$product->image));
         }
 
         $product->delete();
-        
+
         return response()->json(['success' => 'Le produit a été supprimé avec succès!'], 200);
     }
 
@@ -210,11 +210,11 @@ class ProductController extends Controller
 
 
         $product = Product::findOrFail($id);
-        
+
         if($request->hasFile('image')){
             if($product->image !== 'default_product.png'){
                 File::delete(public_path('storage/images/products/'.$product->image));
-                $imageName =  Str::random(20).'.'.$request->image->extension();
+                $imageName =  Str::random(10).'.'.$request->image->extension();
                 if($request->image->move(public_path('storage/images/products'),$imageName)){
                     $product->image = $imageName;
                 }

@@ -23,4 +23,14 @@ class Product extends Model
         return $this->belongsToMany('App\Order');
     }
 
+    public function wishlist(){
+        return $this->belongsToMany('App\Wishlist');
+    }
+
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

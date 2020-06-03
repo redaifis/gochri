@@ -3,6 +3,8 @@
 !images/
 !images/assets
 !images/assets/*
+!images/categories
+!images/categories/*
 !images/profiles
 !images/profiles/*
 !images/products

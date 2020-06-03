@@ -47,6 +47,11 @@ class User extends Authenticatable
 
     }
 
+    public function wishlist(){
+        return $this->hasOne('App\Wishlist');
+
+    }
+
     public function isAdmin(){
         return Auth::user()->role === 'admin';
     }

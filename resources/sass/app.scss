@@ -5,10 +5,54 @@
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
 // Font Awesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+
+button{
+    cursor: pointer!important;
+}
+
+// Wishlist Toggler
+
+.heart-icon{
+    font-size:28px;
+    color:orange;
+    cursor:pointer;
+}
+.heart-icon:hover {
+    transform: scale(1.1);
+    transition: .1s ease;
+}
+
+
+// Close icon
+
+.close-icon{
+    cursor:pointer;
+    font-size:18px;
+}
+
+// Loading animation
+
+.loadingspinner {
+	pointer-events: none;
+	width: 2em;
+	height: 2em;
+	border: 0.4em solid transparent;
+	border-color: #eee;
+	border-top-color: #F29537;
+	border-radius: 50%;
+	animation: loadingspin 1s linear infinite;
+      box-sizing: border-box;
+}
+
+@keyframes loadingspin {
+	100% {
+			transform: rotate(360deg)
+	}
+}

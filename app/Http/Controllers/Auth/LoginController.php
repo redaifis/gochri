@@ -75,11 +75,8 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($driver)
     {
-        try {
-            $user = Socialite::driver($driver)->user();
-        } catch (\Exception $e) {
-            return redirect()->route('login');
-        }
+
+        $user = Socialite::driver($driver)->stateless()->user();
 
         $existingUser = User::where('email', $user->getEmail())->first();
 

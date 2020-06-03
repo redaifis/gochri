@@ -24,16 +24,13 @@
 
             <div class="card-footer">
                 <div class="row">
-                    <div class="col-6 align-items-center justify-content-start">
-                            <button v-if="order.status === 'En attente'" class="btn btn-success btn-sm mr-2" @click="ship()">Livraisé</button>
-                            <button v-if="order.status === 'En attente' || order.status === 'Livraisé' || order.status === 'Arrivé'" class="btn btn-danger btn-sm mr-2" @click="refund()">Remboursé</button>
-                    </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <span v-if="order.status === 'Livraisé'" class="font-weight-bold text-info">Livraisé</span>
-                        <span v-if="order.status === 'Remboursé'" class="font-weight-bold text-danger">Remboursé</span>
-                        <span v-if="order.status === 'Arrivé'" class="font-weight-bold text-success">Arrivé</span>
-                    </div>
+                <div class="col-6 align-items-center justify-content-start">
+                    Livraison: <span class="font-weight-bold"><span :class="order.shipping_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.shipping_status == 0 ? 'En attente' : 'Livraisé'}}</span></span>
                 </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                    <button class="btn btn-primary btn-sm" v-show="order.shipping_status == 0" @click="markShipped">Marquer comme livraisé</button>
+                </div>
+            </div>
 
             </div>
 
@@ -42,6 +39,7 @@
         <div class="card">
             <div class="card-header font-weight-bold">
                 Paiement
+
             </div>
             <div class="card-body ">
                 <div class="row mb-2">
@@ -72,6 +70,17 @@
                         <span class="font-weight-bold">{{total}} Dh</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                <div class="col-6 align-items-center justify-content-start">
+                    Facture: <span class="font-weight-bold"><span :class="order.payment_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.payment_status == 0 ? 'Non payé' : 'Payé'}}</span></span>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                    <button class="btn btn-primary btn-sm" v-show="order.payment_status == 0" @click="markPaid">Marquer comme payé</button>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -134,7 +143,7 @@ export default {
 
     },
     methods: {
-        ship() {
+        markShipped() {
             this.$swal({
                 title: 'Voulez-vous marquer cette commande comme livraisé?',
                 // text: "Rendre cette commande livraisé.",
@@ -147,22 +156,24 @@ export default {
                         .then(res => {
                             this.order.status = res.data.status
                             this.$swal('Succés!',`${res.data.success}`,'success')
+                            .then(() => location.reload())
                         }).catch(err => console.log(err))
                 }
             })
         },
-        refund() {
+        markPaid() {
             this.$swal({
-                title: 'Voulez-vous marquer cette commande comme remboursé?',
+                title: 'Voulez-vous marquer cette commande comme payé?',
                 showCancelButton: true,
                 confirmButtonText: "Oui",
                 cancelButtonText: "Annuler"
             }).then((result) => {
                 if (result.value) {
-                    axios.put('/api/admin/orders/' + this.order.id + '/refunded')
+                    axios.put('/api/admin/orders/' + this.order.id + '/paid')
                         .then(res => {
                             this.order.status = res.data.status
                             this.$swal('Succés!',`${res.data.success}`,'success')
+                            .then(() => location.reload())
                         }).catch(err => console.log(err))
                 }
             })

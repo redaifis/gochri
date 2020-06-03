@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
 
 Route::group(['middleware' => 'auth'],function(){
 
@@ -46,16 +45,71 @@ Route::group(['middleware' => 'auth'],function(){
 
     /* ----- CUSTOMER ----- */
     Route::group(['middleware' => 'customer', 'prefix' => 'customer'],function(){
-        Route::get('/dashboard', 'Customer\CustomerController@index')->name('customer');
+
+        // Dashboard
+        Route::get('/dashboard', 'Customer\CustomerController@index');
+
+        // Compte
+        Route::get('/compte', 'Customer\CustomerController@compte');
+
+        // Wishlist
+        Route::get('/wishlist', 'Customer\CustomerController@wishlist');
+
+        // Orders
+        Route::get('/orders', 'Customer\CustomerController@orders');
+
+        // Show Order
+        Route::get('/orders/{id}', 'Customer\CustomerController@orderPage');
+
     });
 
 });
 
+// Login & Register & Logout
 
-Route::get('/', 'TestController@checkout');
+Route::get('/login','AuthController@loginPage')->name('login');
+Route::get('/register','AuthController@registerPage')->name('register');
+Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
+Route::post('/logout','AuthController@logout')->name('logout');
+
+// Landing page
+Route::get('/', 'MainController@index');
+
+// search Page
+Route::get('/search/{type?}/{searchText?}', 'SearchController@searchPage');
+
+// Show Product
+Route::get('/products/{slug}', 'ProductController@show');
+
+// Cart page
+Route::get('/cart', 'CartController@index');
+Route::get('/cart/all', 'CartController@getItems');
+Route::post('/cart', 'CartController@addToCart');
+Route::put('/cart/{rowId}', 'CartController@updateItem');
+Route::delete('/cart/{rowId}', 'CartController@deleteItem');
+Route::delete('/cart/items/destroy', 'CartController@destroyCart');
 
 
-/* ----- Authentication using providers: Google - Facebook ----- */
+/* --- Other Pages --- */
+
+// About page
+Route::get('/about', 'MainController@about');
+
+// Contact page
+Route::get('/contact', 'MainController@contact');
+
+// Privacy policy
+Route::get('/privacy-policy', 'MainController@privacyPolicy');
+
+// Charge payment - Stripe
+Route::post('/charge', 'CheckoutController@charge');
+
+
+// Charge payment - Stripe
+Route::get('/thank-you', 'CheckoutController@thankYou');
+
+/* ----- Authentication using: Google - Facebook ----- */
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
     ->name('login.provider')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
@@ -63,3 +117,6 @@ Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
 Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
     ->name('login.callback')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
+
+
+// Auth::routes();

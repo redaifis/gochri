@@ -7,8 +7,9 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Product::class, function (Faker $faker) {
+
     return [
-        
+
         'name' => $faker->sentence(),
         'description' => $faker->paragraph(),
         'price' => $faker->randomFloat(2,10,200),
@@ -17,10 +18,10 @@ $factory->define(Product::class, function (Faker $faker) {
         'vendor' => $faker->randomElement(['Atacadao','Marjan','Carrefour', 'Aswak Assalam']),
         'discount' => $faker->randomElement([null,10,5,15]),
         'slug' => Str::slug($faker->sentence()),
-        'image' => $faker->file('C:\Users\Reda\Desktop\pains et bagettes', 'public/storage/images/products', false),
-        'user_id' => $faker->randomElement([3,4]),
-        'category_id' => 19,
-        'subcategory_id' => 7,
+        'image' => $faker->file('C:\Users\Reda\Desktop\faker\yaourts', 'public/storage/images/products', false),
+        'user_id' => $faker->randomElement([7,6]),
+        'category_id' => 21,
+        'subcategory_id' => 23,
 
     ];
 });

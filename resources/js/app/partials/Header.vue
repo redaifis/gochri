@@ -1,252 +1,392 @@
 <template>
-<div>
-    <nav class="navbar bg-white shadow-sm flex-nowrap">
+  <div class="navbar">
+      <div id="nav">
+      <div>
+        <button class="menu" @click="menuactive=!menuactive">
+          <menubarre class="menubarre" :class="{change:menuactive}" />
+        </button>
+        <a href="/">
+          <img class="logo" src="@/assets/logo.svg" />
+        </a>
+      </div>
+      <rechercheavancer class="recherche" />
 
-        <div class="links d-flex mr-2">
-            <a href="#" @click="() => {categories = !categories; categorieId = null}" class="mr-3 px-3 mt-1 toggler rounded" :style="categories ? 'color:#333333;' : ''"><i class="fas fa-bars"></i></a>
-            <a href="#" id="logo"><img src="/storage/images/logo/logo.svg" alt="logo"></a>
+      <div class="pop_up">
+        <div @click="showpopup(1)">
+          <img src="@/assets/Compte.svg" />
+          <label>Compte</label>
         </div>
-
-        <transition name="fade">
-            <div class="card shadow-sm menu border-0" v-show="categories" style="width:auto">
-                <div class="card-body m-0 p-0">
-                    <div class="row py-2">
-                        <div class="col-12 col-sm-6">
-                            <div class="d-flex flex-column categories">
-                                <a href="#" class="m-2 py-2 px-4 rounded d-flex justify-content-between align-items-center" v-for="categorie in items" :key="categorie.id" @click="categorieId = categorie.id" :style="categorieId === categorie.id ? 'color:#333333;' : ''">{{categorie.name}} <i class="fas fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                        <transition name="slide-fade">
-                        <div class="col-12 col-sm-6 subcategories-container" v-if="categorieId !== null">
-                            <div class="d-flex flex-column subcategories">
-                                <a href="#" class="m-2 py-2 px-4 rounded active" v-for="subcategorie in filteredCategorie[0].subcategories" :key="subcategorie.id">{{subcategorie.name}}</a>
-                            </div>
-                        </div>
-                        </transition>
-                    </div>
-                    
-                    <div class="row d-sm-block d-md-none">
-                        <div class="col-12">
-                            <div class="links-inside d-flex flex-wrap">
-                                <a href="#" class="mx-3 my-3 d-flex flex-column align-items-center justify-content-center" ><i class="fas fa-user"></i><span>Compte</span> </a>
-                                <a href="#" class="mx-3 my-3 d-flex flex-column align-items-center"><i class="fas fa-heart"></i><span>Liste</span> </a>
-                                <a href="#" class="mx-3 my-3 d-flex flex-column align-items-center"><i class="fas fa-shopping-basket"></i><span>Panier</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </transition>
-
-
-        <div class="search mx-3">
-            <input type="text" class="form-control" placeholder="Recherche">
-            <div>
-                <i class="fas fa-search"></i>
-            </div>
-
+        <div @click="showpopup(2)">
+          <img src="@/assets/heart.svg" />
+          <label>Listes</label>
         </div>
-        <div class="d-none d-md-block">
-
-            <div class="links customer-links d-flex ">
-                <a href="#" class="px-3 d-flex flex-column align-items-center"><i class="fas fa-user"></i><span>Compte</span> </a>
-                <a href="#" class="px-3 d-flex flex-column  align-items-center"><i class="fas fa-heart"></i><span>Wishlist</span> </a>
-                <a href="#" class="px-3 d-flex flex-column  align-items-center"><i class="fas fa-shopping-basket"></i><span>Panier</span></a>
-            </div>
+        <div @click="showpopup(3)" style="position:relative">
+          <img src="@/assets/panier2.svg" />
+          <span class="chip secondary" v-html="cartItemsCount" v-show="Object.keys(cartItems).length > 0">
+            </span>
+          <label>Panier</label>
         </div>
+      </div>
+    </div>
 
-    </nav>
-</div>
+    <div id="nav_phone">
+      <div>
+        <button class="menu" @click="menuactive=!menuactive">
+          <menubarre class="menubarre" :class="{change:menuactive}" />
+        </button>
+        <a href="/">
+          <img class="logo" src="@/assets/logo.svg" />
+        </a>
+      </div>
+      <div v-if="menuactive">
+        <div class="search">
+          <input type="text" v-model="menuVerticalSearchText" placeholder="Recherche..." @keyup.enter="menuVerticalSearch()"/>
+          <img src="@/assets/loupe.svg" @click="menuVerticalSearch()"/>
+        </div>
+        <menuvertical :categories="categories"/>
+
+        <div class="pop_up">
+          <div @click="showpopup(1)">
+            <img src="@/assets/Compte.svg" />
+            <label>Compte</label>
+          </div>
+          <div @click="showpopup(2)">
+            <img src="@/assets/heart.svg" />
+            <label>Listes</label>
+          </div>
+          <div @click="showpopup(3)">
+            <img src="@/assets/panier2.svg" />
+            <label>Panier</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <popupcompte class="popupshow" :active="popupactive==1" v-on:close="closepopup" :user="user"/>
+    <popuplist class="popupshow" :active="popupactive==2" v-on:close="closepopup" />
+    <popuppanier class="popupshow" :active="popupactive==3" v-on:close="closepopup" :cartItems="cartItems"/>
+
+    <Menu class="menubox" :class="{closed:!menuactive}" :categories="categories" />
+  </div>
 </template>
 
 <script>
+import menubarre from "@/components/menubarre.vue";
+import rechercheavancer from "@/components/rechercheavancer.vue";
+import menuvertical from "@/components/menuvertical.vue";
+import Menu from "@/components/Menu/Menu.vue";
+import popupcompte from "@/components/popup/popupcompte.vue";
+import popuplist from "@/components/popup/popuplist.vue";
+import popuppanier from "@/components/popup/popuppanier.vue";
+
+const user = window.user || []
+
 export default {
-    data() {
-        return {
-            categories: false,
-            categorieId: null,
-            items: [
-                {
-                    id: 1,
-                    name: 'Fruits Et Légumes',
-                    subcategories: [
-                        {
-                            id: 1,
-                            name: 'Fruits'
-                        },
-                        {
-                            id: 2,
-                            name: 'Légumes'
-                        }
-                    ],
-                },
-                {
-                    id: 2,
-                    name: 'Crémerie Et Fromages',
-                    subcategories: [
-                        {
-                            id: 1,
-                            name: 'Crèmes fraîches'
-                        },
-                        {
-                            id: 2,
-                            name: 'Laits'
-                        },
-                        {
-                            id: 3,
-                            name: 'Yaourts et desserts'
-                        }
-                    ],
-                },
-                {
-                    id: 3,
-                    name: 'Epicerie Sucrée',
-                    subcategories: [
-                        {
-                            id: 1,
-                            name: 'Biscuits'
-                        },
-                        {
-                            id: 2,
-                            name: 'Chocolate'
-                        }
-                    ],
-                },
-                {
-                    id: 4,
-                    name: 'Pains Et Pâtisseries',
-                    subcategories: [
-                        {
-                            id: 1,
-                            name: 'Pains'
-                        },
-                        {
-                            id: 2,
-                            name: 'Gâteaux'
-                        }
-                    ],
-                }
-            ]
-            
-        }
+  components: {
+    popupcompte,
+    popuplist,
+    popuppanier,
+    Menu,
+    menuvertical,
+    rechercheavancer,
+    menubarre
+  },
+  data: function() {
+    return {
+        categories: [],
+      popupactive: 0,
+      menuactive: false,
+      cartItems: [],
+      user: user,
+      menuVerticalSearchText: ''
+    };
+  },
+  methods: {
+    showpopup: function(selected) {
+      this.popupactive = selected;
     },
-    computed: {
-        filteredCategorie(){
-            return this.items.filter(element => element.id === this.categorieId)
-        }
+    closepopup: function() {
+      this.popupactive = 0;
+    },
+    getCategories(){
+        axios.get('/api/categories')
+        .then(res => this.categories = res.data.categories)
+        .catch(err => console.log(err))
+    },
+    getCartItems(){
+        axios.get('/cart/all')
+        .then(res => this.cartItems = res.data.items)
+        .catch(err => console.log(err))
+    },
+    menuVerticalSearch(){
+        window.location.href = '/search/product/' + this.menuVerticalSearchText
     }
-}
+  },
+  computed:{
+      cartItemsCount(){
+          return Object.keys(this.cartItems).length
+      }
+  },
+  mounted(){
+      this.getCategories()
+      this.getCartItems()
+
+      this.$root.$on('retrieve cart items', () => {
+          this.getCartItems()
+      })
+  }
+};
 </script>
 
-<style scoped>
-.menu {
-    position: absolute;
-    top: 70px;
-    transition: 700ms all ease;
-    z-index: 999;
+<style lang="stylus">
+
+orange = #F29537;
+
+for_xs()
+  @media screen and (max-width: 600px)
+    {block}
+for_s()
+  @media screen and (max-width: 768px)
+    {block}
+for_m()
+  @media screen and (max-width: 992px)
+    {block}
+for_l()
+  @media screen and (max-width: 1200px)
+    {block}
+.navbar{
+    margin-bottom: 90px;
 }
-
-
-.categories a,
-.subcategories a {
-    text-decoration: none;
-    color: #F4A95B;
-    transition: 300ms ease;
-    width: 225px;
-}
-
-.categories a:hover,
-.subcategories a:hover {
-    color: #DA872F;
-}
-
-.links-inside a{
-    color: #F4A95B;
-    font-size: 14px;
-    text-decoration: none;
-    width: 50px;
-}
-
-.subcategories-container{
-    transition: 300ms ease;
-}
-
-.links a {
-    color: #F4A95B;
-    font-size: 22px;
-    text-decoration: none;
-    transition: 300ms ease;
-}
-
-.links a:hover {
-    color: #DA872F;
-}
-
-.links a span {
-    font-size: 13px;
-}
-
-.links #logo {
-    width: 70px;
-}
-
-.toggler {
-    margin-top: 0.15rem !important
-}
-
-.form-control {
-    border: 1px solid #F4A95B;
-    height: calc(1.2em + 0.75rem + 2px);
-    width: 100%
-}
-
-.search {
+#nav {
+  display: flex;
     position: relative;
-    width: 300px;
+
+  justify-content: space-between;
+  align-items: center;
+//   padding: 0px 30px;
+  height: 90px;
+  position: fixed;
+    width:100%;
+  top:0;
+    z-index:999;
+    background-color:#fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+
+  +for_s() {
+    display: none;
+  }
+
+  .recherche {
+    width: 100%;
+  }
+
+  .menubarre {
+    display: block;
+        margin: 0 0 0 30px;
+  }
+
+  .menu {
+    +for_m() {
+      padding: 5px 5px 5px 5px;
+    }
+
+    +for_s() {
+      padding: 11px 10px 10px 10px;
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      margin-right: 10px;
+      width: 116px;
+
+      +for_m() {
+        width: 90px;
+      }
+    }
+  }
+
+  button {
+    background: none;
+    border: none;
+    border-radius: 10px;
+    margin-right: 30px;
+    outline: none;
+  }
+
+  &>input {
+  }
+
+  .pop_up {
+    color: Grey;
+    display: flex;
+
+    margin: 0 20px 0 0;
+    div {
+      &:hover label {
+        display: block;
+      }
+
+      label {
+        display: none;
+        color: orange;
+      }
+
+      +for_m() {
+        font-size: 10pt;
+      }
+
+      img {
+        height: 40px;
+        margin: 10px;
+
+        +for_m() {
+          height: 22px;
+          margin: 5px;
+        }
+      }
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5px;
+    }
+  }
+}
+.menubox {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  z-index: 2;
+  border-radius: 0 10px 10px 0;
+  transition: transform 1s;
+
+  &.closed {
+    transform: translateX(-100%);
+  }
 }
 
-.search div {
+#nav_phone {
+  display: none;
+
+  +for_s() {
+    display: block;
+  }
+
+  &>div:first-child {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+    &>a {
+      width: 100%;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      border-radius: 5px;
+      padding: 4px 7px;
+      outline: none;
+
+      img {
+        width: 30px;
+        height: 30px;
+        display: block;
+      }
+    }
+  }
+
+  &>div:nth-child(2) {
+    padding: 20px;
+    background-color: white;
     position: absolute;
-    top: 2px;
-    font-size: 18px;
-    right: 10px;
-    color: #f4a95b;
-}
+    left: 0;
+    right: 0;
+    z-index: 10;
+    border-radius: 10px 10px 10px 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.251);
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s;
-}
+    .search {
+      position: relative;
 
-.fade-enter,
-.fade-leave-to{
-    opacity: 0;
-}
+      input {
+        border: 1px solid orange;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 10pt;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to {
-  transform: translateX(-20px);
-  opacity: 0;
-}
-
-@media only screen and (max-width: 590px) {
-    .menu {
-        max-width:300px;
+      img {
+        position: absolute;
+        width: 15px;
+        right: 0;
+        top: 0;
+        align-items: center;
+        padding: 9px;
+      }
     }
-    .subcategories {
-        border-top: 1px solid rgb(255, 231, 206);
-        padding: 20px 0;
-        /* width: 80%; */
-        overflow: hidden;
+
+    .pop_up {
+      display: flex;
+      justify-content: space-around;
+      box-sizing: border-box;
+      color: orange;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 30px;
+          margin-bottom: 10px;
+        }
+      }
     }
-    .categories{
-        padding: 0 0 20px 0;
+  }
+}
+
+#popupcompte, #popuplist, #popuppanier {
+  button {
+    background-color: orange;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+
+    &.close {
+      padding: 0;
     }
+  }
+}
+
+.chip{
+    position absolute;
+    top: 30px;
+    left: 0;
+	border-radius: 100%;
+    padding: 4px 8px;
+	font-weight: 600;
+	font-size: 12px;
+	box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	// margin: 0 10px;
+	cursor: pointer;
+}
+.chip.secondary{
+	background: rgba(242, 149, 55, 0.8);
+	color: #fff;
 }
 </style>

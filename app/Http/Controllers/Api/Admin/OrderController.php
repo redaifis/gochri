@@ -55,15 +55,15 @@ class OrderController extends Controller
 
     public function markShipped($id){
         $order = Order::findOrFail($id);
-        $order->status = 'Livraisé';
+        $order->shipping_status = 1;
         $order->save();
         return response()->json(['status' => $order->status, 'success' => 'La commande a été marqué comme livraisé!'], 200);
     }
 
-    public function markRefunded($id){
+    public function markPaid($id){
         $order = Order::findOrFail($id);
-        $order->status = 'Remboursé';
+        $order->payment_status = 1;
         $order->save();
-        return response()->json(['status' => $order->status, 'success' => 'La commande a été marqué comme remboursé!'], 200);
+        return response()->json(['status' => $order->status, 'success' => 'La commande a été marqué comme payé!'], 200);
     }
 }

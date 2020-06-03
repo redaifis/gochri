@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::apiResource('orders', 'Api\Admin\OrderController');
         // Update Order Status
         Route::put('orders/{id}/shipped', 'Api\Admin\OrderController@markShipped');
-        Route::put('orders/{id}/refunded', 'Api\Admin\OrderController@markRefunded');
+        Route::put('orders/{id}/paid', 'Api\Admin\OrderController@markPaid');
 
         /* ----- Settings ----- */
         // Shipping
@@ -60,9 +60,45 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* ----- Customer ----- */
     Route::group(['prefix' => 'customer'], function () {
 
+        // Orders
+        Route::get('/orders','Api\Customer\CustomerController@orders');
+        Route::get('/orders/{id}','Api\Customer\CustomerController@orderProducts');
+        Route::post('/orders','Api\Customer\CustomerController@storeOrder');
+
+        // Wishlist
+        Route::get('/wishlist','Api\Customer\CustomerController@wishlistProducts');
+        Route::put('/wishlist/{productId}','Api\Customer\CustomerController@toggleWishlist');
+
+        // Profile
+        Route::get('/profile','Api\Customer\CustomerController@me');
+        Route::put('/profile','Api\Customer\CustomerController@modifyProfile');
+
     });
 });
 
+Route::get('mainpage','Api\MainController@getRessources');
+Route::post('search','Api\SearchController@search');
 
+// products
+Route::apiResource('products','Api\ProductController')->except(['store','update','destroy']);
+Route::get('products/suggestions/{subcategory}','Api\ProductController@suggestions');
 
+// subcategories
+Route::apiResource('subcategories','Api\SubcategorytController')->except(['store','update','destroy']);
 
+// categories
+Route::apiResource('categories','Api\CategoryController')->except(['store','update','destroy']);
+
+// Cart
+Route::get('cart','Api\CartController@getItems');
+Route::post('cart','Api\CartController@addToCart');
+Route::put('cart','Api\CartController@updateItem');
+Route::delete('cart/{id}','Api\CartController@removeItem');
+
+// Shipping
+Route::get('shipping-methods','Api\MainController@getShippingMethods');
+
+// Route::group(['prefix' => 'auth'], function () {
+//     Route::post('login','Api\AuthController@login');
+//     Route::post('register','Api\AuthController@register');
+// });

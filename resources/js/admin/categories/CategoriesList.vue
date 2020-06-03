@@ -43,7 +43,7 @@
                     <div class="card-footer pb-0 pt-3 text-center">
                         <jw-pagination :items="filteredList" @changePage="onChangePage"></jw-pagination>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -68,21 +68,30 @@ export default {
             .then(res => this.categories = res.data.categories)
             .catch(err => console.log(err))
         },
-        addCategory(){
-            this.$swal({
+        async addCategory(){
+            const { value: category } = await this.$swal({
                 title: 'Ajouter une catégorie',
-                input: 'text',
+                html:
+                    '<input type="text" id="name" class="swal2-input">' +
+                    '<input type="file" id="image" class="swal2-input">',
+                focusConfirm: false,
+
                 showCancelButton: true,
                 cancelButtonText: 'Annuler',
                 confirmButtonText: 'Ajouter',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Le nom de catégorie est obligatoire!'
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('name').value,
+                        image: document.getElementById('image').files[0]
                     }
-                },
-                preConfirm: (category) => {
-                    this.$swal.showLoading()
-                    return axios.post('/api/admin/categories', {category: category})
+                }
+            })
+            console.log(category)
+            if (category) {
+                let data = new FormData()
+                data.append("name", category.name);
+                data.append("image", category.image);
+                axios.post('/api/admin/categories', data, {headers: {'content-type': 'multipart/form-data'}})
                     .then(response => {
                         this.$swal(
                             'Succés',
@@ -97,8 +106,7 @@ export default {
                         'error'
                         )
                     })
-                },
-            })
+            }
         },
         editCategory(category,id){
                 this.$swal({
@@ -161,7 +169,7 @@ export default {
         filteredList() {
             return this.categories.filter(category => {
                 return category.name.toLowerCase().includes(this.search.toLowerCase())
-            })            
+            })
         }
     },
     mounted(){
