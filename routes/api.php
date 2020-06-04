@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* ----- Admin ----- */
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         // Dashboard
-        Route::get('dashboard','Api\admin\AdminController@dashboard');
+        Route::get('dashboard','Api\Admin\AdminController@dashboard');
 
         // Categories
         Route::apiResource('categories', 'Api\Admin\CategoryController');
