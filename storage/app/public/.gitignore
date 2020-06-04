@@ -8,4 +8,5 @@
 !images/profiles
 !images/profiles/*
 !images/products
-!images/products/default_product.png
+!images/products/*
+# !images/products/default_product.png
