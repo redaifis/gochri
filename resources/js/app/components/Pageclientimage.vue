@@ -1,6 +1,6 @@
 <template>
   <div class="pageclientimage">
-    <img src="@/assets/pageclientimage.png" />
+    <img src="@/assets/pageclientimage.jpg" />
     <div>
       <label>
         Avec

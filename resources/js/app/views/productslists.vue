@@ -1,6 +1,6 @@
 <template>
   <div class="productslists">
-    <section1 :title="'Produits'" :img="'/img/imagefruit.png'" />
+    <section1 :title="'Produits'" :img="'/img/imagefruit.jpg'" />
     <div>
       <!-- <div class="category-nav">
         <img src="@/assets/rightarrowblack.svg" />

@@ -3530,7 +3530,7 @@ __webpack_require__.r(__webpack_exports__);
         slug: "category/Viandes Et Poissons"
       }, {
         id: 5,
-        image: "img/fromage.png",
+        image: "img/fromage.jpg",
         name: "Pour les enfants",
         slug: "category/Crémerie Et Fromages"
       }, {
@@ -71012,7 +71012,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "pageclientimage" }, [
-      _c("img", { attrs: { src: __webpack_require__(/*! @/assets/pageclientimage.png */ "./resources/js/app/assets/pageclientimage.png") } }),
+      _c("img", { attrs: { src: __webpack_require__(/*! @/assets/pageclientimage.jpg */ "./resources/js/app/assets/pageclientimage.jpg") } }),
       _vm._v(" "),
       _c("div", [
         _c("label", [
@@ -75065,7 +75065,7 @@ var render = function() {
     { staticClass: "productslists" },
     [
       _c("section1", {
-        attrs: { title: "Produits", img: "/img/imagefruit.png" }
+        attrs: { title: "Produits", img: "/img/imagefruit.jpg" }
       }),
       _vm._v(" "),
       _c("div", [
@@ -94278,14 +94278,14 @@ module.exports = "/images/moreinfolefto.svg?bfe5978f4b387280618c578629df726b";
 
 /***/ }),
 
-/***/ "./resources/js/app/assets/pageclientimage.png":
+/***/ "./resources/js/app/assets/pageclientimage.jpg":
 /*!*****************************************************!*\
-  !*** ./resources/js/app/assets/pageclientimage.png ***!
+  !*** ./resources/js/app/assets/pageclientimage.jpg ***!
   \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/pageclientimage.png?71962c27efe92f983d74d4664c2379e8";
+module.exports = "/images/pageclientimage.jpg?411f93e86f131a1e3ce20f85a7e5b712";
 
 /***/ }),
 
@@ -94417,7 +94417,7 @@ module.exports = "/images/searchicon2.svg?a12e1c809d1bab287352fe3cdf7edfcc";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/serviceclient.jpg?037e42262b158c5a5a6b25279f01d976";
+module.exports = "/images/serviceclient.jpg?28012f1aa1c403088156260c6fbc51db";
 
 /***/ }),
 

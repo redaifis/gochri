@@ -47,7 +47,7 @@ export default {
         },
         {
           id: 5,
-          image: "img/fromage.png",
+          image: "img/fromage.jpg",
           name: "Pour les enfants",
           slug: "category/Crémerie Et Fromages"
         },
