@@ -3914,24 +3914,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      wishlist: [],
-      items: [{
-        id: 1,
-        name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-        unit: "le paquet de 500 g"
-      }, {
-        id: 2,
-        name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-        unit: "le paquet de 500 g"
-      }, {
-        id: 3,
-        name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-        unit: "le paquet de 500 g"
-      }, {
-        id: 4,
-        name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-        unit: "le paquet de 500 g"
-      }]
+      wishlist: []
     };
   },
   components: {
@@ -3941,11 +3924,13 @@ __webpack_require__.r(__webpack_exports__);
     getWishlist: function getWishlist() {
       var _this = this;
 
-      axios.get('/api/customer/wishlist').then(function (res) {
-        return _this.wishlist = res.data.wishlist;
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+      if (window.user != undefined) {
+        axios.get('/api/customer/wishlist').then(function (res) {
+          return _this.wishlist = res.data.wishlist;
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
     }
   },
   mounted: function mounted() {
