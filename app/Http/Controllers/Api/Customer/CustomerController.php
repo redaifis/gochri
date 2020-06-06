@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Customer;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Wishlist;
-use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use Illuminate\Support\Str;
@@ -29,7 +28,6 @@ class CustomerController extends Controller
             'address' => $request->address,
             'payment_method' => $request->payment_method,
             'payment_status' => $request->payment_method == "paypal" || $request->payment_method == "credit card" ? 1 : 0,
-            // 'payment_status' => $request->payment_status,
             'note' => $request->note,
             'paid_at' => now(),
             'user_id' => Auth::id(),
@@ -43,7 +41,6 @@ class CustomerController extends Controller
         }
 
         return response()->json(compact('order'),200);
-
     }
 
     public function orderProducts($orderId){
@@ -100,4 +97,5 @@ class CustomerController extends Controller
 
         return response()->json(['profile' => $user, 'success'=>'Le profil a été modifié avec succés!'],200);
     }
+
 }

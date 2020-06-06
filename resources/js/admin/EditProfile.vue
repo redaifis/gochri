@@ -121,7 +121,7 @@ export default {
                             this.profile.image = res.data.image
                             this.$swal('Succés', `${res.data.success}`, 'success')
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => this.$swal('Erreur!',`${err.response.data.errors.image[0]}`, 'error'))
                 }
             })
         },

@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* ----- Admin ----- */
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+
         // Dashboard
         Route::get('dashboard','Api\Admin\AdminController@dashboard');
 
@@ -55,6 +56,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('settings/shipping','Api\Admin\ShippingController@index');
         Route::post('settings/shipping','Api\Admin\ShippingController@store');
         Route::delete('settings/shipping/{id}','Api\Admin\ShippingController@destroy');
+
     });
 
     /* ----- Customer ----- */
@@ -73,10 +75,17 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/profile','Api\Customer\CustomerController@me');
         Route::put('/profile','Api\Customer\CustomerController@modifyProfile');
 
+        // Increase products sales when ordering
+        Route::put('products/sales','Api\ProductController@productSales');
+
     });
 });
 
+
+// Main page
 Route::get('mainpage','Api\MainController@getRessources');
+
+// Search page
 Route::post('search','Api\SearchController@search');
 
 // products
@@ -97,8 +106,3 @@ Route::delete('cart/{id}','Api\CartController@removeItem');
 
 // Shipping
 Route::get('shipping-methods','Api\MainController@getShippingMethods');
-
-// Route::group(['prefix' => 'auth'], function () {
-//     Route::post('login','Api\AuthController@login');
-//     Route::post('register','Api\AuthController@register');
-// });

@@ -28,8 +28,11 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -42,7 +45,6 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link">GOCHRI</a>
       </li>
-
     </ul>
 
 
@@ -247,6 +249,7 @@
 
 
   </div>
+
   <!-- /.content-wrapper -->
   <footer class="main-footer text-sm">
 
@@ -272,16 +275,16 @@
 @yield('scripts')
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script async src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 <!-- overlayScrollbars -->
-<script src="{{asset('admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script async src="{{asset('admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 
 <!-- AdminLTE App -->
-<script src="{{asset('admin-lte/dist/js/adminlte.min.js')}}"></script>
+<script async src="{{asset('admin-lte/dist/js/adminlte.min.js')}}"></script>
 
 <!-- Main Js File -->
-<script src="{{asset('js/admin.js')}}"></script>
+<script async src="{{asset('js/admin.js')}}"></script>
 
 </body>
 </html>

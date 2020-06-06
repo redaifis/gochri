@@ -66,7 +66,6 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 // Login & Register & Logout
-
 Route::get('/login','AuthController@loginPage')->name('login');
 Route::get('/register','AuthController@registerPage')->name('register');
 Route::post('/login','AuthController@login');
@@ -105,9 +104,9 @@ Route::get('/privacy-policy', 'MainController@privacyPolicy');
 // Charge payment - Stripe
 Route::post('/charge', 'CheckoutController@charge');
 
-
-// Charge payment - Stripe
+// Thank you page
 Route::get('/thank-you', 'CheckoutController@thankYou');
+
 
 /* ----- Authentication using: Google - Facebook ----- */
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
@@ -117,6 +116,3 @@ Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')
 Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
     ->name('login.callback')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
-
-
-// Auth::routes();

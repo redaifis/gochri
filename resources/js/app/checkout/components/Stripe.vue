@@ -82,10 +82,17 @@ export default {
                     console.log(result)
                     axios.post('/api/customer/orders', order)
                         .then(res => {
+
+                            axios.put('/api/customer/products/sales',{products: this.cartItems})
+                            .then(res => console.log(res))
+                            .catch(err => console.log(err))
+
                             axios.delete('/cart/items/destroy')
                             .then(res => console.log(res))
                             .catch(err => console.log(err))
+
                             window.location.href = "/thank-you"
+
                         }).catch(err => console.log(err))
                 })
                 .catch(err => console.log(err))

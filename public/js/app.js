@@ -2046,6 +2046,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.shipping = shipping;
     },
     checkPayment: function checkPayment() {
+      var _this2 = this;
+
       var order = _objectSpread({
         amount: this.total
       }, this.shipping, {
@@ -2060,6 +2062,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           })["catch"](function (err) {
             return console.log(err);
           });
+          axios.put('/api/customer/products/sales', {
+            products: _this2.cartItems
+          }).then(function (res) {
+            return console.log(res);
+          })["catch"](function (err) {
+            return console.log(err);
+          });
           window.location.href = "/thank-you";
         })["catch"](function (err) {
           return console.log(err);
@@ -2070,11 +2079,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.getCartItems();
     this.$root.$on('retrieve cart items', function () {
-      _this2.getCartItems();
+      _this3.getCartItems();
     });
   },
   computed: {
@@ -2635,8 +2644,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         onApprove: function onApprove(data, actions) {
           return actions.order.capture().then(function (details) {
+            var _this = this;
+
             alert('Paiement a été effectué avec succés par: ' + details.payer.name.given_name);
             axios.post('/api/customer/orders', order).then(function (res) {
+              axios.put('/api/customer/products/sales', {
+                products: _this.cartItems
+              }).then(function (res) {
+                return console.log(res);
+              })["catch"](function (err) {
+                return console.log(err);
+              });
               axios["delete"]('/cart/items/destroy').then(function (res) {
                 return console.log(res);
               })["catch"](function (err) {
@@ -2764,6 +2782,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         })).then(function (result) {
           console.log(result);
           axios.post('/api/customer/orders', order).then(function (res) {
+            axios.put('/api/customer/products/sales', {
+              products: _this.cartItems
+            }).then(function (res) {
+              return console.log(res);
+            })["catch"](function (err) {
+              return console.log(err);
+            });
             axios["delete"]('/cart/items/destroy').then(function (res) {
               return console.log(res);
             })["catch"](function (err) {

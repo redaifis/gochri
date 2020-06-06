@@ -9,17 +9,17 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
 
+    // Search bar (controls search fonctionality in the Navbar)
+
     public function search(Request $request){
+
         $search = $request->search;
 
         if($search == '') return response()->json(['products' => ''],200);
 
-        $products = Product::where('name','LIKE','%'.$search.'%')->limit(5)->get();
+        $products = Product::published()->where('name','LIKE','%'.$search.'%')->limit(5)->get();
 
         return response()->json(compact('products'),200);
-    }
-
-    public function advancedSearch(){
 
     }
 }

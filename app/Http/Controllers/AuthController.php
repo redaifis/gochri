@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+    // Custom authentication (login & register)
+
     public function loginPage(){
         return view('app.auth.loginPage');
     }

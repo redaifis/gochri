@@ -73,6 +73,11 @@ export default{
                     axios.delete('/cart/items/destroy')
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
+
+                    axios.put('/api/customer/products/sales',{products: this.cartItems})
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err))
+
                     window.location.href = "/thank-you"
                 }).catch(err => console.log(err))
             }else{

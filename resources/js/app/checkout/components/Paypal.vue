@@ -51,9 +51,15 @@ export default {
                         alert('Paiement a été effectué avec succés par: ' + details.payer.name.given_name);
                         axios.post('/api/customer/orders', order)
                         .then(res => {
+
+                            axios.put('/api/customer/products/sales',{products: this.cartItems})
+                            .then(res => console.log(res))
+                            .catch(err => console.log(err))
+
                             axios.delete('/cart/items/destroy')
                             .then(res => console.log(res))
                             .catch(err => console.log(err))
+
                             window.location.href = "/thank-you"
                         }).catch(err => console.log(err))
 

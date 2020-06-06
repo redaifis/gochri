@@ -9,24 +9,14 @@ use Illuminate\Support\Str;
 
 class SubcategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $subcategories = Subcategory::orderBy('created_at','desc')->with('category')->withCount('products')->get();
         return response()->json(['subcategories' => $subcategories], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -36,21 +26,16 @@ class SubcategoryController extends Controller
             'editedSubcategory.regex' => 'Le nom de sous-categorie doit pas contenir des caractères speciaux!',
             'editedSubcategory.distinct' => 'Les sous-catégorie doit être distinctes!',
         ]);
-        
+
         $editedSubcategory = Subcategory::findOrFail($id);
         $editedSubcategory->name = Str::title($request->editedSubcategory);
-        $editedSubcategory->slug = Str::slug($request->editedSubcategory);        
+        $editedSubcategory->slug = Str::slug($request->editedSubcategory);
         $editedSubcategory->save();
 
-        return response()->json(['success'=>'La sous-catégorie a été modifié avec success!'], 200); 
+        return response()->json(['success'=>'La sous-catégorie a été modifié avec success!'], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $subcategory = Subcategory::findOrFail($id);

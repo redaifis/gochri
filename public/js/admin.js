@@ -2284,7 +2284,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
 
             _this2.$swal('Succés', "".concat(res.data.success), 'success');
           })["catch"](function (err) {
-            return console.log(err);
+            return _this2.$swal('Erreur!', "".concat(err.response.data.errors.image[0]), 'error');
           });
         }
       });
@@ -65454,7 +65454,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(
-                        "\r\n                                Publié\r\n                            "
+                        "\n                                Publié\n                            "
                       )
                     ])
                   ]),

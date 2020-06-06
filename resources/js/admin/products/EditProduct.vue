@@ -150,7 +150,7 @@ export default {
             const data = new FormData();
             data.append('image', this.image);
             data.append('_method', 'put');
-            
+
             this.$swal({
                 title: 'Changer l\'image',
                 text: 'Vous êtes entrain de change l\'image',

@@ -52,10 +52,12 @@ class User extends Authenticatable
 
     }
 
+    // check if the authenticated user is an Admin
     public function isAdmin(){
         return Auth::user()->role === 'admin';
     }
 
+    // check if the authenticated user is a Customer
     public function isCustomer(){
         return Auth::user()->role === 'customer';
     }
