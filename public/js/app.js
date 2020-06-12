@@ -3564,34 +3564,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     agile: vue_agile__WEBPACK_IMPORTED_MODULE_0__["VueAgile"]
+  },
+  data: function data() {
+    return {
+      banners: [{
+        id: 1,
+        img: '/storage/images/banners/banner1.jpg'
+      }, {
+        id: 2,
+        img: '/storage/images/banners/banner2.jpg'
+      }, {
+        id: 3,
+        img: '/storage/images/banners/banner3.jpg'
+      }, {
+        id: 4,
+        img: '/storage/images/banners/banner4.jpg'
+      }]
+    };
   }
 });
 
@@ -71340,63 +71333,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("agile", { attrs: { "initial-slide": 3 } }, [
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
+  return _c(
+    "agile",
+    { attrs: { "initial-slide": 3 } },
+    _vm._l(_vm.banners, function(banner) {
+      return _c("img", {
+        key: banner.id,
+        staticClass: "slide",
+        attrs: { src: banner.img }
+      })
     }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1524260855046-f743b3cdad07?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1526080676457-4544bf0ebba9?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1426170042593-200f250dfdaf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    }),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "slide",
-      attrs: {
-        src:
-          "https://images.unsplash.com/photo-1529815481058-55e5b656f6d6?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-      }
-    })
-  ])
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
