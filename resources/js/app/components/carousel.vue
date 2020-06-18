@@ -16,22 +16,26 @@ export default {
   data(){
       return{
           banners: [
+
+
             {
-                id: 1,
-                img: '/storage/images/banners/banner1.jpg',
-            },
-            {
-                id: 2,
-                img: '/storage/images/banners/banner2.jpg',
+                id: 4,
+                img: '/storage/images/banners/banner 4.jpg',
             },
             {
                 id: 3,
-                img: '/storage/images/banners/banner3.jpg',
+                img: '/storage/images/banners/banner 3.jpg',
             },
             {
-                id: 4,
-                img: '/storage/images/banners/banner4.jpg',
+                id: 2,
+                img: '/storage/images/banners/banner 2.jpg',
             },
+              {
+                id: 1,
+                img: '/storage/images/banners/banner 1.jpg',
+            },
+
+
           ]
       }
   }

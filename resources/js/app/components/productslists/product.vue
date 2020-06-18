@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const userWishlist = window.userWishlist;
+const userWishlist = window.wishlist;
 
 export default {
   props: ['product'],
@@ -55,8 +55,10 @@ export default {
               this.$root.$emit('retrieve wishlist')
           }
         })
-        .catch(err => console.log(err))
     }
+  },
+  mounted(){
+      this.$root.$on('deleted wishlist', (id) => this.userWishlist = this.userWishlist.filter(el => el != id))
   }
 };
 </script>

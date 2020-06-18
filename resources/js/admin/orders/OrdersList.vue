@@ -46,7 +46,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="order in pageOforders" :key="order.id">
-                                    <td style="vertical-align: middle;">{{order.id}}</td>
+                                    <td style="vertical-align: middle;">{{order.reference}}</td>
                                     <td style="vertical-align: middle;">{{order.created_at | moment('MMMM Do YYYY, h:mm:ss a')}}</td>
                                     <td style="vertical-align: middle;">{{order.user.name}}</td>
                                     <td style="vertical-align: middle;"><span :class="order.payment_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.payment_status == 0 ? 'Non payé' : 'Payé'}}</span></td>

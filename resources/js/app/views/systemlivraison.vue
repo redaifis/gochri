@@ -10,11 +10,11 @@
       <label>Votre mode de livraison :</label>
       <div class="shipping">
 
-          <div class="methods" v-for="method in shippingMethods" :key="method.id">
+          <div class="methods" v-for="(method,index) in shippingMethods" :key="method.id">
                 <img class="truckicon" src="@/assets/truck2icon.svg" />
                 <div>
 
-                    <label><input type="radio" name="standard" id="standard" :value="method" v-model="shipping"> {{method.name + ' ' + (method.price == null ? '' : (method.price + ' Dh'))}}</label>
+                    <label><input type="radio" name="standard" :value="method" v-model="shipping" :checked="index === 0"> {{method.name + ' ' + (method.price == null ? '' : (method.price + ' Dh'))}}</label>
                 </div>
                 <div class="moreinfo">
                 <label @click="showfirst=!showfirst">?</label>
@@ -86,12 +86,20 @@ export default {
   methods:{
       getShippingMethods(){
           axios.get('/api/shipping-methods')
-          .then(res => this.shippingMethods = res.data.shipping_methods)
+          .then(res => {
+              this.shippingMethods = res.data.shipping_methods
+              this.shipping = res.data.shipping_methods[0]
+
+            })
           .catch(err => console.log(err))
       },
-    validEmail: function (email) {
+    validEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+    validTel(tel) {
+      var re = /^\d{10}$/;
+      return re.test(tel);
     },
     checkForm() {
       this.errors = [];
@@ -108,6 +116,8 @@ export default {
 
       if (!this.shipping.phone) {
         this.errors.push("N° téléphone est obligatoire.");
+      }else if (!this.validTel(this.shipping.phone)) {
+        this.errors.push('Numero de téléphone est incorrecte.');
       }
 
         if (!this.shipping.country) {
@@ -131,8 +141,11 @@ export default {
       },
 
   },
-  mounted(){
+  async mounted(){
       this.getShippingMethods()
+          this.$emit('getShipping',this.shipping)
+
+
   }
 };
 </script>

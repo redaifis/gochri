@@ -9,4 +9,6 @@
 !images/profiles/*
 !images/products
 !images/products/*
+!images/banners
+!images/banners/*
 # !images/products/default_product.png

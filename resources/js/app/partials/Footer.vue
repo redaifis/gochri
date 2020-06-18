@@ -34,7 +34,8 @@
 
       </div>
       <div>
-        <a href="/contact" target="_blank">Contact</a>
+        <label>Liens utiles</label>
+        <a href="/privacy-policy">Politique de confidentialité</a>
         <a href="#">Service client</a>
         <a href="#">FAQ</a>
       </div>

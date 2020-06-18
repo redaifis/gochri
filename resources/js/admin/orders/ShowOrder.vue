@@ -43,6 +43,14 @@
             </div>
             <div class="card-body ">
                 <div class="row mb-2">
+                    <div class="col-6">
+                        <span>Méthode de paiment</span>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <span>{{order.payment_method}}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-3">
                         <span>Sous-total</span>
                     </div>

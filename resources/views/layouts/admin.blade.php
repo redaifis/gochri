@@ -221,11 +221,22 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <li class="nav-item has-treeview {{ (Request::is('admin/settings') || Request::is('admin/settings/*')) ? 'menu-open' : ''}}"">
                 <a href="/admin/settings" class="nav-link {{ (Request::is('admin/settings') || Request::is('admin/settings/*')) ? 'active' : ''}}">
-                  <i class="fa fa-cog nav-icon" style="margin-left:0;"></i>
+                  <i class="fa fa-cog nav-icon"  aria-hidden="true"></i>
                   <p>Paramètres</p>
+                  <i class="fas fa-angle-left right"></i>
                 </a>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="/admin/settings/shipping" class="nav-link {{ Request::is('admin/settings/shipping') ? 'active' : ''}}">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>Livraison</p>
+
+                      </a>
+                    </li>
+                  </ul>
               </li>
 
             </ul>

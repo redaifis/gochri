@@ -13,16 +13,15 @@
         </button>
 
         <div class="info_commande">
-          <label>Numéro de commande: {{order.id}}</label>
+          <label>Numéro de commande: {{order.reference}}</label>
           <label>{{order.created_at | moment('MMMM Do YYYY, h:mm:ss a')}}</label>
         </div>
 
         <div>
           <product
-            v-for="(item,index) in order.products"
+            v-for="item in order.products"
             :key="item.id"
             :product="item"
-
           />
         </div>
         <div>
@@ -48,56 +47,7 @@ export default {
   },
   data: function() {
     return {
-      items: [
-        {
-          id: 1,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 1
-        },
-        {
-          id: 2,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 3
-        },
-        {
-          id: 3,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 3
-        },
-        {
-          id: 4,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 3
-        },
-        {
-          id: 5,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 3
-        },
-        {
-          id: 6,
-          img: "img/bettrave.png",
-          title: "Betteraves rouges cuites bio CARREFOUR BIO",
-          unit: "le paquet de 500 g",
-          price: 150,
-          nbr: 3
-        }
-      ]
+
     };
   },
   methods: {

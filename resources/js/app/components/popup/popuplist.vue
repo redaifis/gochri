@@ -68,6 +68,7 @@ for_l()
   border-width: 0px 1px 1px 1px;
   width:360px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  overflow-y: scroll
 
   +for_s() {
     padding: 20px;

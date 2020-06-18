@@ -7,7 +7,7 @@
         <label>Historique des commandes</label>
       </div>
       <div class="search">
-        <input type="text" placeholder="Recherche..." />
+        <input type="text" placeholder="Numéro de commande.." v-model="search"/>
         <button>
           <img src="@/assets/loupew.svg" />
         </button>
@@ -19,8 +19,8 @@
         <label>Total</label>
         <label>Livraison</label>
         <label>...</label>
-        <template v-for="order in orders">
-          <label :key="order.id">{{order.id}}</label>
+        <template v-for="order in searched">
+          <label :key="order.id">{{order.reference}}</label>
           <label :key="order.id">{{order.created_at | moment('MMMM Do YYYY, h:mm:ss a')}}</label>
           <label :key="order.id">
             {{order.products_count}}
@@ -45,8 +45,18 @@ export default {
   },
   data() {
     return {
-      orders: []
+      orders: [],
+        search: ''
     }
+  },
+  computed:{
+      searched(){
+          if(this.search){
+            return this.orders.filter(el => el.reference.includes(this.search))
+          }else{
+              return this.orders
+          }
+      }
   },
   methods: {
     decreasenbr: function(index) {

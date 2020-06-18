@@ -10,7 +10,7 @@
       <div>
         <button>
           <img src="@/assets/rightarrowicon.svg" />
-          <label onClick="window.location.href = '/search'">Continuez mes achats</label>
+          <label onClick="history.back()">Continuez mes achats</label>
         </button>
 
         <div>

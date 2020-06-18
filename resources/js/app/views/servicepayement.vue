@@ -10,13 +10,13 @@
       <label>Votre mode de paiement :</label>
       <div>
         <img src="@/assets/paypalicon.svg" />
-        <label><input type="radio" name="payment" id="payment" value="paypal" v-model="payment"> Paypal</label>
+        <label><input type="radio" name="payment" value="paypal" v-model="payment" checked="checked"> Paypal</label>
 
         <img src="@/assets/mastercardicon.svg" />
-        <label><input type="radio" name="payment" id="payment" value="credit card" v-model="payment"> Carte Bancaire</label>
+        <label><input type="radio" name="payment" value="credit card" v-model="payment"> Carte Bancaire</label>
 
         <img src="@/assets/livraisoncashicon.svg" />
-        <label><input type="radio" name="payment" id="payment" value="cash on delivery" v-model="payment"> Paiement à livraison</label>
+        <label><input type="radio" name="payment" value="cash on delivery" v-model="payment"> Paiement à livraison</label>
       </div>
       <div>
       <button @click="$emit('goBack')">Précédent</button>
@@ -49,13 +49,17 @@ export default {
   },
   data(){
       return{
-          payment: null
+          payment: 'paypal'
       }
   },
   watch:{
       payment(){
           this.$emit('getPayment',this.payment)
       }
+  },
+  mounted(){
+          this.$emit('getPayment',this.payment)
+
   }
 };
 </script>

@@ -12,13 +12,14 @@ Use Illuminate\Support\Str;
 class CustomerController extends Controller
 {
     public function orders(){
-        $orders = Order::where('user_id',Auth::id())->withCount('products')->get();
+        $orders = Order::where('user_id',Auth::id())->orderBy('created_at','desc')->withCount('products')->get();
 
         return response()->json(compact('orders'),200);
     }
 
     public function storeOrder(Request $request){
         $order = Order::create([
+            'reference' => rand(100000,999999),
             'amount' => $request->amount,
             'email' => $request->email,
             'phone' => $request->phone,

@@ -25,37 +25,43 @@ export default {
           id: 1,
           image: "img/Jus_bio.jpg",
           name: "Faites le plein d'énergie",
-          slug: "category/Boissons"
+          slug: "category/Boissons",
+          color: "#139FC0"
         },
         {
           id: 2,
           image: "img/plat.jpg",
           name: "Le plaisir d'une petite pause de gourmandise",
-          slug: "category/Pains Et Pâtisseries"
+          slug: "category/Pains Et Pâtisseries",
+          color: "#A55C29"
         },
         {
           id: 3,
           image: "img/chocolatmms.jpg",
           name: "Un régal pour tous",
-          slug: "category/Epicerie Sucrée"
+          slug: "category/Epicerie Sucrée",
+          color: "#F34350"
         },
         {
           id: 4,
           image: "img/viande.jpg",
           name: "A consommer avec passion",
-          slug: "category/Viandes Et Poissons"
+          slug: "category/Viandes Et Poissons",
+          color: "#8A2D26"
         },
         {
           id: 5,
           image: "img/fromage.jpg",
           name: "Pour les enfants",
-          slug: "category/Crémerie Et Fromages"
+          slug: "category/Crémerie Et Fromages",
+          color: "#F39639"
         },
         {
           id: 6,
           image: "img/bio.jpg",
           name: "100% BIO",
-          slug: "category/Fruits Et Légumes"
+          slug: "category/Fruits Et Légumes",
+            color: "#B8B62F"
         }
       ]
     };

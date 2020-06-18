@@ -1,5 +1,5 @@
 <template>
-  <a :href="'/search/'+actualite.slug">
+  <a :href="'/search/'+actualite.slug" :style="'background-color:'+actualite.color">
     <img :src="actualite.image" />
     <label>{{actualite.name}}</label>
   </a>
@@ -32,7 +32,7 @@ a {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  background-color: orange;
+//   background-color: orange;
   border-radius: 10px;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.169);
   transition: transform 0.2s;

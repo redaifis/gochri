@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row my-2">
         <div class="col-12">
-          <h1 class="m-0 text-dark">Commande #{{$order->id}}</h1>
+          <h1 class="m-0 text-dark">Commande #{{$order->reference}}</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -16,7 +16,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      
+
 
         <show-order :data='@json($order)'></show-order>
 

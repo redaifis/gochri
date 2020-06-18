@@ -1,11 +1,12 @@
 <template>
-  <div id="poplistitem" v-if="removed == false">
-    <img :src="'/storage/images/products/' + item.image" style="max-width: 50px"/>
-    <div>
-      <label>{{item.name.length > 30 ? item.name.slice(0,30) + ".." : item.name}}</label>
-    </div>
-    <i class="fas fa-times close-icon" @click="removeItem()"></i>
-    <!-- <button >X</button> -->
+  <div id="poplistitem" v-if="removed == false" >
+        <a :href="'/products/' + item.slug"><img :src="'/storage/images/products/' + item.image" style="max-width: 50px"/></a>
+        <div>
+            <a :href="'/products/' + item.slug"><label>{{item.name.length > 30 ? item.name.slice(0,30) + ".." : item.name}}</label></a>
+
+        </div>
+        <i class="fas fa-times close-icon" @click="removeItem()"></i>
+        <!-- <button >X</button> -->
   </div>
 </template>
 
@@ -23,6 +24,8 @@ export default {
           .then(res => console.log(res))
           .catch(err => console.log(err))
           this.removed = true
+
+          this.$root.$emit('deleted wishlist', this.item.id)
       }
   }
 };
@@ -86,5 +89,10 @@ align-items: center;
       }
     }
   }
+}
+
+a{
+    text-decoration: none
+    color: #333333
 }
 </style>

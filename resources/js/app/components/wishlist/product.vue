@@ -22,7 +22,9 @@ export default {
           axios.put('/api/customer/wishlist/'+this.item.id)
           .then(res => console.log(res))
           .catch(err => console.log(err))
-          this.removed= false
+          this.removed = true
+
+          this.$root.$emit('retrieve wishlist')
       }
   }
 };

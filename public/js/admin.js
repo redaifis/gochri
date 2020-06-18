@@ -2083,13 +2083,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['success'],
   data: function data() {
@@ -2685,6 +2678,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -62816,59 +62817,104 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-3 col-12" }, [
-        _c("div", { staticClass: "small-box bg-info" }, [
-          _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.data.orders_count))]),
+        _c(
+          "div",
+          {
+            staticClass: "small-box text-white",
+            staticStyle: { background: "#139FC0" }
+          },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.data.orders_count))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Commandes")])
+            ]),
             _vm._v(" "),
-            _c("p", [_vm._v("Commandes")])
-          ]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1)
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-3 col-6" }, [
-        _c("div", { staticClass: "small-box bg-danger" }, [
-          _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.data.users_count))]),
+            _vm._m(0),
             _vm._v(" "),
-            _c("p", [_vm._v("Utilisateurs")])
-          ]),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4)
-        ])
+            _vm._m(1)
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3 col-12" }, [
-        _c("div", { staticClass: "small-box bg-warning" }, [
-          _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.data.products_count))]),
+        _c(
+          "div",
+          {
+            staticClass: "small-box text-white",
+            staticStyle: { background: "#B8B62F" }
+          },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [
+                _vm._v(_vm._s(_vm.data.revenue.toFixed(2))),
+                _c("sup", { staticStyle: { "font-size": "20px" } }, [
+                  _vm._v("Dh")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Revenu")])
+            ]),
             _vm._v(" "),
-            _c("p", [_vm._v("Produits")])
-          ]),
-          _vm._v(" "),
-          _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6)
-        ])
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._m(3)
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          {
+            staticClass: "small-box text-white",
+            staticStyle: { background: "#F34350" }
+          },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.data.users_count))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Utilisateurs")])
+            ]),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _vm._m(5)
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 col-12" }, [
+        _c(
+          "div",
+          {
+            staticClass: "small-box text-white",
+            staticStyle: { background: "#F39639" }
+          },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.data.products_count))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Produits")])
+            ]),
+            _vm._v(" "),
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7)
+          ]
+        )
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12 col-md-8" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(7),
+          _vm._m(8),
           _vm._v(" "),
           _c("div", { staticClass: "card-body p-0" }, [
             _c("div", { staticClass: "table-responsive" }, [
               _c("table", { staticClass: "table m-0" }, [
-                _vm._m(8),
+                _vm._m(9),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -62938,13 +62984,13 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(9)
+          _vm._m(10)
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-12 col-md-4" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(10),
+          _vm._m(11),
           _vm._v(" "),
           _c("div", { staticClass: "card-body p-0" }, [
             _c(
@@ -62975,7 +63021,7 @@ var render = function() {
                             product.name.length > 30
                               ? product.name.substring(0, 30) + "..."
                               : product.name
-                          ) + "\r\n                        "
+                          ) + "\n                                    "
                         ),
                         _c(
                           "span",
@@ -62987,9 +63033,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("span", { staticClass: "product-description" }, [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                                    " +
                           _vm._s(product.description) +
-                          "\r\n                      "
+                          "\n                                "
                       )
                     ])
                   ])
@@ -62999,7 +63045,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(11)
+          _vm._m(12)
         ])
       ])
     ])
@@ -63031,26 +63077,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 col-12" }, [
-      _c("div", { staticClass: "small-box bg-success" }, [
-        _c("div", { staticClass: "inner" }, [
-          _c("h3", [
-            _vm._v("0"),
-            _c("sup", { staticStyle: { "font-size": "20px" } }, [_vm._v("$")])
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Revenu")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "icon" }, [
-          _c("i", { staticClass: "ion ion-stats-bars" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-          _vm._v("Plus de détails "),
-          _c("i", { staticClass: "fas fa-arrow-circle-right" })
-        ])
-      ])
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-stats-bars" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+      _vm._v("Plus de détails "),
+      _c("i", { staticClass: "fas fa-arrow-circle-right" })
     ])
   },
   function() {
@@ -63069,7 +63106,7 @@ var staticRenderFns = [
       "a",
       { staticClass: "small-box-footer", attrs: { href: "/admin/users" } },
       [
-        _vm._v("\r\n            Plus de détails "),
+        _vm._v("\n                    Plus de détails "),
         _c("i", { staticClass: "fas fa-arrow-circle-right" })
       ]
     )
@@ -63964,7 +64001,7 @@ var render = function() {
               _vm._l(_vm.pageOforders, function(order) {
                 return _c("tr", { key: order.id }, [
                   _c("td", { staticStyle: { "vertical-align": "middle" } }, [
-                    _vm._v(_vm._s(order.id))
+                    _vm._v(_vm._s(order.reference))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticStyle: { "vertical-align": "middle" } }, [
@@ -64254,6 +64291,14 @@ var render = function() {
           _c("div", { staticClass: "row mb-2" }, [
             _vm._m(0),
             _vm._v(" "),
+            _c("div", { staticClass: "col-6 d-flex justify-content-end" }, [
+              _c("span", [_vm._v(_vm._s(_vm.order.payment_method))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mb-2" }, [
+            _vm._m(1),
+            _vm._v(" "),
             _c("div", { staticClass: "col-3" }, [
               _c("span", [
                 _vm._v(_vm._s(_vm.order.products.length) + " éléments")
@@ -64296,7 +64341,7 @@ var render = function() {
           _c("hr"),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "col-6 d-flex justify-content-end" }, [
               _c("span", { staticClass: "font-weight-bold" }, [
@@ -64444,6 +64489,14 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c("span", [_vm._v("Méthode de paiment")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

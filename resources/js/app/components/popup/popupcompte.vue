@@ -26,12 +26,22 @@
     <a href="/">Mot de passe oublié ?</a>
   </form>
     <form id="popupcompte" v-bind:class="{'hidden':!active}" v-if="user.id  != undefined">
-        <button v-on:click.prevent="$emit('close')" class="close">X</button>
-        <h6 class="title">Vous êtes connectez!</h6>
-        <div>
+        <button v-on:click.prevent="$emit('close')" class="close"><i class="fas fa-times"></i></button>
+        <label class="title" style="margin-top:20px">Vous êtes connecté.</label>
+        <p style="margin-top:0">Bienvenue {{user.name}}!</p>
+        <div v-if="user.role === 'customer'">
             <img :src="user.image.includes('https://') ? user.image :'/storage/images/profiles/' + user.image" alt="profile image" style="border-radius: 100%;width:80px">
-            <p style="margin:30px 0"><a href="/customer/dashboard" style="text-decoration:none">{{user.name}}</a></p>
-            <p><button @click.prevent="logout()" style="text-decoration:none" href="/logout">Déconnecter</button></p>
+            <p style="margin:10px 0"><a href="/customer/dashboard" style="text-decoration:none">Tableau de bord</a></p>
+            <p style="margin:10px 0"><a href="/customer/orders" style="text-decoration:none">Mes commandes</a></p>
+            <p style="margin:10px 0"><a href="/customer/wishlist" style="text-decoration:none">Wishlist</a></p>
+            <p style="margin:10px 0"><a href="/customer/compte" style="text-decoration:none">Mon compte</a></p>
+            <p style="margin:10px 0"><a href="/contact" style="text-decoration:none">Contactez nous</a></p>
+            <button @click.prevent="logout()" style="text-decoration:none;margin:10px 0 0 0 " href="/logout" >Déconnecter</button>
+        </div>
+        <div v-else>
+            <img :src="user.image.includes('https://') ? user.image :'/storage/images/profiles/' + user.image" alt="profile image" style="border-radius: 100%;width:80px">
+            <p style="margin:10px 0"><a href="/admin/dashboard" style="text-decoration:none">Tableau de bord</a></p>
+            <button @click.prevent="logout()" style="text-decoration:none;margin:10px 0 0 0 " href="/logout" >Déconnecter</button>
         </div>
 
     </form>
@@ -53,7 +63,7 @@ export default {
           let loginForm = document.getElementById('popupcompte');
           let data = new FormData(loginForm)
           await axios.post(`/login`, data)
-          .then(res => window.location.href = '/customer/dashboard')
+          .then(res => location.reload())
           .catch(err => {
               console.log(err)
               this.error = true

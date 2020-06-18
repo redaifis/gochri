@@ -1,8 +1,8 @@
 <template>
   <div id="popuppanieritem">
-    <img :src="'/storage/images/products/' + item.options.image" style="max-width: 50px"/>
+    <a :href="'/products/' + item.options.slug"><img :src="'/storage/images/products/' + item.options.image" style="max-width: 50px"/></a>
     <div>
-      <label>{{item.name.length > 30 ? item.name.slice(0,30) + ".." : item.name}}</label>
+      <a :href="'/products/' + item.options.slug"><label>{{item.name.length > 30 ? item.name.slice(0,30) + ".." : item.name}}</label></a>
       <label>x {{item.qty}}</label>
     </div>
     <i class="fas fa-times close-icon" @click="removeItem()"></i>
@@ -83,5 +83,10 @@ for_l()
       }
     }
   }
+}
+
+a{
+    text-decoration: none
+    color: #333333
 }
 </style>

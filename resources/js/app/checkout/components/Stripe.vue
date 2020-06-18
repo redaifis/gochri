@@ -18,12 +18,14 @@
 
             <div>
 
-                <button class="btn" @click="$emit('goBack')">Précédent</button>
+                <button class="btn" @click="$emit('goBack')" v-show="!loading">Précédent</button>
 
-                <button class="btn" id="card-button" @click="charge">
+                <button class="btn" id="card-button" @click="charge" v-show="!loading">
                     <i class="fas fa-check    "></i>
                     Payé
                 </button>
+
+                <div class="loadingspinner" v-show="loading"></div>
             </div>
 
         </div>
@@ -50,6 +52,7 @@ export default {
             cardHolderName: '',
             stripe: null,
             cardElement: null,
+            loading: false
         }
     },
     mounted(){
@@ -67,10 +70,11 @@ export default {
 
     },
     methods:{
-        charge(){
+        async charge(){
+            this.loading = true
             let order = {amount: this.total,...this.shipping,payment_method: this.payment,cartItems: this.cartItems}
 
-            const paymentMethod = this.stripe.createPaymentMethod(
+            const paymentMethod = await this.stripe.createPaymentMethod(
                 'card', this.cardElement, {
                     billing_details: { name: this.cardHolderName, email: this.shipping.email, phone: this.shipping.phone, address: { city: this.shipping.city, country: 'MA', line1: this.shipping.address}}
                 }
@@ -97,6 +101,8 @@ export default {
                 })
                 .catch(err => console.log(err))
             }).catch(err => console.log(err))
+
+            this.loading = false
         }
     }
 }

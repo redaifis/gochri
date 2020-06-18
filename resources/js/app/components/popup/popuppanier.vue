@@ -17,32 +17,7 @@ export default {
   props: ['active','cartItems'],
   data: function() {
     return {
-      items: [
-        {
-          id: 1,
-          name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-          unit: "le paquet de 500 g",
-          quantity: 3
-        },
-        {
-          id: 2,
-          name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-          unit: "le paquet de 500 g",
-          quantity: 3
-        },
-        {
-          id: 3,
-          name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-          unit: "le paquet de 500 g",
-          quantity: 3
-        },
-        {
-          id: 4,
-          name: "Betteraves rouges cuites bio CARREFOUR BIO ",
-          unit: "le paquet de 500 g",
-          quantity: 3
-        }
-      ]
+
     };
   },
   components: {
@@ -79,7 +54,9 @@ for_l()
   border: 1px solid orange;
   border-width: 0px 1px 1px 1px;
   width: 360px;
+  max-height: 500px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  overflow-y: scroll;
 
 
   +for_s() {

@@ -22,8 +22,14 @@ export default {
 
 <style lang="stylus" scoped>
 a {
+    text-decoration: none;
+    color: #F29537;
+    transition: .3s ease all;
+}
+
+a:hover {
     text-decoration: none
-    color: #F29537
+    color: #333333
 }
 
 li {

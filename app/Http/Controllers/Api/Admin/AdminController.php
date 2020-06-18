@@ -21,7 +21,15 @@ class AdminController extends Controller
         $users_count = User::all()->count();
         $orders_count = Order::all()->count();
         $products_count = Product::all()->count();
-        return response()->json(['orders' => $orders, 'products' => $products, 'users_count' => $users_count, 'orders_count' => $orders_count, 'products_count' => $products_count],200);
+
+        // Calcul revenue
+        $ordersRevenue = Order::where('payment_status',1)->get();
+        $revenue = 0;
+        foreach($ordersRevenue as $order){
+            $revenue += $order->amount;
+        }
+
+        return response()->json(['orders' => $orders, 'products' => $products, 'users_count' => $users_count, 'orders_count' => $orders_count, 'products_count' => $products_count,'revenue' =>$revenue],200);
     }
 
 

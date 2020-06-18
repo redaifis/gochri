@@ -23,6 +23,7 @@
     @if(Auth::check())
         <script>
             window.user = {!! Auth::user() !!}
+            window.wishlist = {!! Auth::user()->wishlist()->first()->products()->get()->pluck('id') !!}
         </script>
     @endif
 
