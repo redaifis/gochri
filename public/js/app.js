@@ -2737,6 +2737,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2750,7 +2753,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       cardHolderName: '',
       stripe: null,
       cardElement: null,
-      loading: false
+      loading: false,
+      success: false
     };
   },
   mounted: function mounted() {
@@ -2798,6 +2802,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   axios.post('/charge', _objectSpread({}, res.paymentMethod, {
                     total: _this.total
                   })).then(function (result) {
+                    _this.loading = false;
+                    _this.success = true;
                     console.log(result);
                     axios.post('/api/customer/orders', order).then(function (res) {
                       axios.put('/api/customer/products/sales', {
@@ -2825,9 +2831,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 paymentMethod = _context.sent;
-                _this.loading = false;
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -70725,7 +70730,24 @@ var render = function() {
                   }
                 ],
                 staticClass: "loadingspinner"
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.success,
+                      expression: "success"
+                    }
+                  ],
+                  staticClass: "alert alert-success",
+                  attrs: { role: "alert" }
+                },
+                [_vm._v("\n                  Succés ..\n              ")]
+              )
             ])
           ])
         ],

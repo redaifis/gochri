@@ -222,7 +222,7 @@
               </li>
 
               <li class="nav-item has-treeview {{ (Request::is('admin/settings') || Request::is('admin/settings/*')) ? 'menu-open' : ''}}"">
-                <a href="/admin/settings" class="nav-link {{ (Request::is('admin/settings') || Request::is('admin/settings/*')) ? 'active' : ''}}">
+                <a href="#" class="nav-link {{ (Request::is('admin/settings') || Request::is('admin/settings/*')) ? 'active' : ''}}">
                   <i class="fa fa-cog nav-icon"  aria-hidden="true"></i>
                   <p>Paramètres</p>
                   <i class="fas fa-angle-left right"></i>
@@ -286,16 +286,16 @@
 @yield('scripts')
 
 <!-- jQuery -->
-<script async src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 <!-- overlayScrollbars -->
-<script async src="{{asset('admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script src="{{asset('admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 
 <!-- AdminLTE App -->
-<script async src="{{asset('admin-lte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('admin-lte/dist/js/adminlte.min.js')}}"></script>
 
 <!-- Main Js File -->
-<script async src="{{asset('js/admin.js')}}"></script>
+<script src="{{asset('js/admin.js')}}"></script>
 
 </body>
 </html>

@@ -26,6 +26,9 @@
                 </button>
 
                 <div class="loadingspinner" v-show="loading"></div>
+                <div class="alert alert-success" role="alert" v-show="success">
+                    Succés ..
+                </div>
             </div>
 
         </div>
@@ -52,7 +55,8 @@ export default {
             cardHolderName: '',
             stripe: null,
             cardElement: null,
-            loading: false
+            loading: false,
+            success: false,
         }
     },
     mounted(){
@@ -72,6 +76,7 @@ export default {
     methods:{
         async charge(){
             this.loading = true
+
             let order = {amount: this.total,...this.shipping,payment_method: this.payment,cartItems: this.cartItems}
 
             const paymentMethod = await this.stripe.createPaymentMethod(
@@ -83,6 +88,10 @@ export default {
                 console.log(res)
                 axios.post('/charge', {...res.paymentMethod,total: this.total})
                 .then(result => {
+
+                    this.loading = false
+                    this.success = true
+
                     console.log(result)
                     axios.post('/api/customer/orders', order)
                         .then(res => {
@@ -102,7 +111,6 @@ export default {
                 .catch(err => console.log(err))
             }).catch(err => console.log(err))
 
-            this.loading = false
         }
     }
 }

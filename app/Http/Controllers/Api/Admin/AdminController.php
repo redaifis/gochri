@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
 use App\User;
-
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class AdminController extends Controller
 {
@@ -29,7 +30,29 @@ class AdminController extends Controller
             $revenue += $order->amount;
         }
 
-        return response()->json(['orders' => $orders, 'products' => $products, 'users_count' => $users_count, 'orders_count' => $orders_count, 'products_count' => $products_count,'revenue' =>$revenue],200);
+        // Charts data
+        $today = Carbon::today()->addDay();
+        $weekBefore = Carbon::today()->subWeek()->addDay();
+        $revenueData = Order::orderByDesc('created_at')->whereBetween('created_at', [$weekBefore, $today])->get()->groupBy(function($item) {
+            return $item->created_at->format('d M');
+        });
+
+        $chartData = [
+            $today->copy()->subDay()->format('d M') => [],
+            $today->copy()->subDays(2)->format('d M') => [],
+            $today->copy()->subDays(3)->format('d M') => [],
+            $today->copy()->subDays(4)->format('d M') => [],
+            $today->copy()->subDays(5)->format('d M') => [],
+            $today->copy()->subDays(6)->format('d M') => [],
+            $today->copy()->subDays(7)->format('d M') => [],
+        ];
+
+        foreach($revenueData as $key => $data){
+            array_push($chartData[$key], $data);
+        }
+
+
+        return response()->json(compact(['orders' , 'products' , 'users_count', 'orders_count' , 'products_count' ,'revenue', 'chartData']),200);
     }
 
 

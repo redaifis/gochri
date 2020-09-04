@@ -33,7 +33,7 @@
         </div>
         <!-- ./col -->
 
-        <div class="col-lg-3 col-6">
+        <div class="col-md-3 col-12">
             <!-- small card -->
             <div class="small-box text-white" style="background:#F34350">
                 <div class="inner">
@@ -67,6 +67,15 @@
         <!-- ./col -->
     </div>
 
+    <!-- CHARTS -->
+    <div class="row mb-4 mt-3 py-2">
+        <div class="col-12 col-md-6">
+            <LineChart v-if="chartRevenue.isLoaded" :chartdata="chartRevenue.chartdata" :options="chartRevenue.options" />
+        </div>
+        <div class="col-12 col-md-6">
+            <BarChart v-if="chartOrders.isLoaded" :chartdata="chartOrders.chartdata" :options="chartOrders.options" />
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12 col-md-8">
@@ -162,9 +171,14 @@
 </template>
 
 <script>
-
+import LineChart from './components/LineChart'
+import BarChart from './components/BarChart'
 export default {
     props: ['success'],
+    components: {
+        LineChart,
+        BarChart
+    },
     data() {
         return {
             data: {
@@ -173,16 +187,97 @@ export default {
                 users: [],
                 orders_count: null,
                 users_count: null,
-                products_count: null
+                products_count: null,
+            },
+            chartRevenue: {
+                isLoaded: false,
+                chartdata: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Revenu',
+                        backgroundColor: '#B8B62F',
+                        pointBackgroundColor: 'white',
+                        borderWidth: 1,
+                        data: []
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+
+                        yAxes: [{
+                            display: true,
+
+                            ticks: {
+                                beginAtZero: true,
+                                // stepSize: 10,
+                                callback: function (label, index, labels) {
+                                    return label + ' Dh'
+                                }
+                            }
+                        }]
+                    }
+                }
+            },
+            chartOrders: {
+                isLoaded: false,
+                chartdata: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Commandes',
+                        backgroundColor: '#F39639',
+                        data: []
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                            }
+                        }]
+                    }
+                },
+
             }
 
         }
     },
     methods: {
         getData() {
+            this.chartRevenue.isLoaded = false
+            this.chartOrders.isLoaded = false
+
             axios.get('/api/admin/dashboard')
-                .then(res => this.data = res.data)
+                .then(res => {
+
+                    for (const [key, value] of Object.entries(res.data.chartData).reverse()) {
+                        // console.log(key)
+                        console.log(value[0])
+
+                        this.chartRevenue.chartdata.labels.push(key)
+                        this.chartOrders.chartdata.labels.push(key)
+
+                        this.chartRevenue.chartdata.datasets[0].data.push(value[0] !== undefined ? value[0].map(v => v.amount).reduce((ac, cu) => ac + cu) : 0)
+                        this.chartOrders.chartdata.datasets[0].data.push(value[0] !== undefined ? value[0].length : 0)
+
+                    }
+
+                    this.data = res.data
+
+                })
                 .catch(err => console.log(err))
+
+            this.chartRevenue.isLoaded = true
+            this.chartOrders.isLoaded = true
         },
         showSuccess() {
             // Show success message if exist
