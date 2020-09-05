@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use SEO;
 
 class ProductController extends Controller
 {
@@ -12,6 +13,9 @@ class ProductController extends Controller
         $product = Product::where('slug',$slug)->with('subcategory')->first();
         $product->views++;
         $product->save();
+
+        SEO::setTitle($product->name);
+        SEO::setDescription($product->description);
 
         return view('app.productPage',compact(['product']));
     }
