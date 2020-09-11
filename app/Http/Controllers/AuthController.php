@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use SEO;
 
 class AuthController extends Controller
 {
@@ -13,10 +14,12 @@ class AuthController extends Controller
     // Custom authentication (login & register)
 
     public function loginPage(){
+        SEO::setTitle('Gochri - Connectez-vous page');
         return view('app.auth.loginPage');
     }
 
     public function registerPage(){
+        SEO::setTitle('Gochri - Créer un nouveau compte');
         return view('app.auth.registerPage');
     }
 

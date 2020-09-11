@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use SEO;
 
 class CheckoutController extends Controller
 {
@@ -30,6 +31,7 @@ class CheckoutController extends Controller
 
     // Thank you page (after making order & checkout)
     public function thankYou(){
+        SEO::setTitle('Gochri - Thank You!');
         return view('app.thankYou');
     }
 }

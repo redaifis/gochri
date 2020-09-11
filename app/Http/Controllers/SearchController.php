@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Subcategory;
+use SEO;
 
 class SearchController extends Controller
 {
 
     // search page (searching by category, subcategory, product name)
     public function searchPage($type = '',$searchText = ''){
+        SEO::setTitle('Gochri');
 
         if($type == 'category'){
             $category = Category::where('name','LIKE','%'.$searchText.'%')->first();

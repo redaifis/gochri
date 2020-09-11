@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cart;
+use SEO;
 
 class CartController extends Controller
 {
     public function index(){
+        SEO::setTitle('Gochri - Votre panier!');
         return view('app.cartPage');
     }
 
