@@ -12,7 +12,7 @@
                                 <select class="form-control float-right" id="etat" v-model="shipping_status">
                                     <option value="">Êtat</option>
                                     <option value="0">En attente</option>
-                                    <option value="1">Livraisé</option>
+                                    <option value="1">Livré</option>
 
                                 </select>
                             </div>
@@ -50,8 +50,8 @@
                                     <td style="vertical-align: middle;">{{order.created_at | moment('MMMM Do YYYY, h:mm:ss a')}}</td>
                                     <td style="vertical-align: middle;">{{order.user.name}}</td>
                                     <td style="vertical-align: middle;"><span :class="order.payment_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.payment_status == 0 ? 'Non payé' : 'Payé'}}</span></td>
-                                    <td style="vertical-align: middle;"><span :class="order.shipping_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.shipping_status == 0 ? 'En attente' : 'Livraisé'}}</span></td>
-                                    <!-- <td style="vertical-align: middle;"><span :class="['badge', order.status == 'En attente' ? 'badge-warning' : ((order.status == 'Livraisé') ? 'badge-info' : ((order.status == 'Arrivé') ? 'badge-success' : 'badge-danger'))]">{{order.status}}</span></td> -->
+                                    <td style="vertical-align: middle;"><span :class="order.shipping_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.shipping_status == 0 ? 'En attente' : 'Livré'}}</span></td>
+                                    <!-- <td style="vertical-align: middle;"><span :class="['badge', order.status == 'En attente' ? 'badge-warning' : ((order.status == 'Livré') ? 'badge-info' : ((order.status == 'Arrivé') ? 'badge-success' : 'badge-danger'))]">{{order.status}}</span></td> -->
                                     <!-- <td style="vertical-align: middle;"><span class="badge badge-success">Payé</span></td> -->
 
                                     <td style="vertical-align: middle;">{{order.amount}} Dh</td>

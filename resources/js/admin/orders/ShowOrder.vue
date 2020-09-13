@@ -25,10 +25,10 @@
             <div class="card-footer">
                 <div class="row">
                 <div class="col-6 align-items-center justify-content-start">
-                    Livraison: <span class="font-weight-bold"><span :class="order.shipping_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.shipping_status == 0 ? 'En attente' : 'Livraisé'}}</span></span>
+                    Livraison: <span class="font-weight-bold"><span :class="order.shipping_status == 0 ? 'badge badge-warning' : 'badge badge-success' ">{{order.shipping_status == 0 ? 'En attente' : 'Livré'}}</span></span>
                 </div>
                 <div class="col-6 d-flex align-items-center justify-content-end">
-                    <button class="btn btn-primary btn-sm" v-show="order.shipping_status == 0" @click="markShipped">Marquer comme livraisé</button>
+                    <button class="btn btn-primary btn-sm" v-show="order.shipping_status == 0" @click="markShipped">Marquer comme Livré</button>
                 </div>
             </div>
 
@@ -153,8 +153,8 @@ export default {
     methods: {
         markShipped() {
             this.$swal({
-                title: 'Voulez-vous marquer cette commande comme livraisé?',
-                // text: "Rendre cette commande livraisé.",
+                title: 'Voulez-vous marquer cette commande comme Livré?',
+                // text: "Rendre cette commande Livré.",
                 showCancelButton: true,
                 confirmButtonText: "Oui",
                 cancelButtonText: "Annuler"

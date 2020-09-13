@@ -14,7 +14,7 @@
                 <img class="truckicon" src="@/assets/truck2icon.svg" />
                 <div>
 
-                    <label><input type="radio" name="standard" :value="method" v-model="shipping" :checked="index === 0"> {{method.name + ' ' + (method.price == null ? '' : (method.price + ' Dh'))}}</label>
+                    <label><input type="radio" name="standard" :value="method" v-model="shipping" :checked="index === 0"> {{method.name}}</label>
                 </div>
                 <div class="moreinfo">
                 <label @click="showfirst=!showfirst">?</label>

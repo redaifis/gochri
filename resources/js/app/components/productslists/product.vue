@@ -111,6 +111,8 @@ for_l()
       outline: none;
       background-color: inherit;
       align-self: flex-start;
+      width : fit-content;
+      margin-left: auto;
       transition: transform 0.5s;
         cursor: pointer;
       &:hover {
